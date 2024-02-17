@@ -2,6 +2,7 @@
 #define Game_hpp
 #include "SDL.h"
 #include <iostream>
+#undef main
 
 class Game {
 public:
