@@ -1,7 +1,7 @@
 #ifndef Game_hpp
 #define Game_hpp
 #include "SDL.h"
-#include <stdio.h>
+#include <iostream>
 
 class Game {
 public:
@@ -15,9 +15,10 @@ public:
 	void render();
 	void clean();
 
-	bool running();
+	bool running() { return isRunning; }
 
 private:
+	int cnt;
 	bool isRunning;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
