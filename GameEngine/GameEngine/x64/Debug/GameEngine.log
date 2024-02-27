@@ -1,4 +1,6 @@
-﻿  Game.cpp
-  main.cpp
-  Generating Code...
-  GameEngine.vcxproj -> C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
+﻿  GameObject.cpp
+x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\GameObject.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
+Game.obj : error LNK2019: unresolved external symbol IMG_Load referenced in function "public: void __cdecl Game::init(char const *,int,int,int,int,bool)" (?init@Game@@QEAAXPEBDHHHH_N@Z)
+C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe : fatal error LNK1120: 1 unresolved externals

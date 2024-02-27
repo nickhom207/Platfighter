@@ -33,4 +33,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL2.dll" />
+    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="x64\Debug\GameEngine.exe.recipe" />
+    <None Include="x64\Debug\GameEngine.ilk" />
+    <None Include="x64\Debug\vc143.idb" />
+    <None Include="x64\Debug\GameEngine.tlog\CL.command.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\Cl.items.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\CL.read.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\CL.write.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\GameEngine.lastbuildstate" />
+    <None Include="x64\Debug\GameEngine.tlog\link.command.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\link.read.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\link.secondary.1.tlog" />
+    <None Include="x64\Debug\GameEngine.tlog\link.write.1.tlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\Game.obj" />
+    <Object Include="x64\Debug\GameObject.obj" />
+    <Object Include="x64\Debug\main.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\GameEngine.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asset\dot.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

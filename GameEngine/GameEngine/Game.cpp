@@ -4,7 +4,7 @@
 SDL_Texture* playertexture;
 GameObject* player;
 
-Game::Game()
+Game::Game() : cnt(0), isRunning(false), renderer(nullptr), window(nullptr) 
 {}
 Game::~Game()
 {}
