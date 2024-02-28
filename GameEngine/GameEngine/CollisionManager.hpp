@@ -12,7 +12,7 @@ class CollisionManager {
 public:
 	CollisionManager();
 	~CollisionManager();
-	bool CheckCollision(const Rectangle& rect1, const Rectangle& rect2, float deltaTime);
+	bool CheckCollision(const SDL_Rect a, const SDL_Rect b, SDL_Point a_speed, float deltaTime);
 private:
 
 };

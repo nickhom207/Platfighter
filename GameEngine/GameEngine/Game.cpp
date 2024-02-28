@@ -1,12 +1,19 @@
 #include "Game.hpp"
+#include "CollisionManager.hpp"
 
 Game::Game()
 {}
 Game::~Game()
 {}
 
+
+
+CollisionManager collisionManager;
+SDL_Rect rect1, rect2;
+
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+	
 	int flags = 0;
 
 	if (fullscreen)
@@ -39,7 +46,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	//For testing:
-
+	rect1 = { 0, 0, 10, 10 };
+	rect2 = { 15, 0, 5, 5 }; // Modified starting position and velocity
+	
 }
 
 void Game::handleEvents()
@@ -60,6 +69,15 @@ void Game::update()
 {
 	cnt++;
 	std::cout << cnt << std::endl;
+
+	//for testing
+
+	if (collisionManager.CheckCollision(rect1, rect2, { 50, 0 }, 1.0f / 60.0f)) {
+		std::cout << "Collision detected!" << std::endl;
+	}
+	else {
+		std::cout << "Collision NOT detected!" << std::endl;
+	}
 }
 
 void Game::render()

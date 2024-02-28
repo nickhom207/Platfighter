@@ -2,7 +2,6 @@
 
 Game* game = nullptr;
 
-
 int main(int argc, const char* argv[]) {
 	game = new Game();
 

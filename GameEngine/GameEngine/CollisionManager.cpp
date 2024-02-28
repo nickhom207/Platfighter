@@ -1,5 +1,6 @@
 #include "CollisionManager.hpp"
 #include <iostream>
+#include <vector>
 
 
 
@@ -11,7 +12,67 @@ CollisionManager::~CollisionManager() {
 
 }
 
-bool CollisionManager::CheckCollision(const Rectangle& rect1, const Rectangle& rect2, float deltaTime) {
+bool CollisionManager::CheckCollision(const SDL_Rect a, const SDL_Rect b, SDL_Point a_speed, float deltaTime) {
+
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    
+
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+    //Update sides base on it's future movement
+    if (a_speed.x > 0) {
+        rightA = rightA + a_speed.x;
+    }
+    else {
+        leftA = leftA - a_speed.x;
+    }
+
+    if (a_speed.y > 0) {
+        topA = topA + a_speed.y;
+    }
+    else {
+        bottomA = bottomA - a_speed.y;
+    }
+
+    //If any of the sides from A are outside of B
+    if (bottomA <= topB)
+    {
+        return false;
+    }
+
+    if (topA >= bottomB)
+    {
+        return false;
+    }
+
+    if (rightA <= leftB)
+    {
+        return false;
+    }
+
+    if (leftA >= rightB)
+    {
+        return false;
+    }
+
+    //If none of the sides from A are outside B
+    return true;
+    /*
     // Calculate the future position of the rectangles
     float rect1FutureX = rect1.x + rect1.velocityX * deltaTime;
     float rect1FutureY = rect1.y + rect1.velocityY * deltaTime;
@@ -38,4 +99,58 @@ bool CollisionManager::CheckCollision(const Rectangle& rect1, const Rectangle& r
     }
 
     return false; // No collision
+    */
+}
+
+
+// Structure to represent a polygon
+struct Polygon
+{
+    std::vector<SDL_Point> points;
+};
+
+// Function to check if two line segments intersect
+bool doLineSegmentsIntersect(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2)
+{
+    int o1 = (q1.x - p1.x) * (p2.y - p1.y) - (p2.x - p1.x) * (q1.y - p1.y);
+    int o2 = (q1.x - p1.x) * (q2.y - p1.y) - (q2.x - p1.x) * (q1.y - p1.y);
+    int o3 = (q2.x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (q2.y - p2.y);
+    int o4 = (q2.x - p2.x) * (q1.y - p2.y) - (q1.x - p2.x) * (q2.y - p2.y);
+
+    if ((o1 > 0 && o2 < 0) || (o1 < 0 && o2 > 0) || (o3 > 0 && o4 < 0) || (o3 < 0 && o4 > 0))
+        return true;
+
+    if (o1 == 0 && (p2.x - p1.x) * (p2.x - q1.x) <= 0 && (p2.y - p1.y) * (p2.y - q1.y) <= 0)
+        return true;
+
+    if (o2 == 0 && (p2.x - p1.x) * (p2.x - q1.x) <= 0 && (p2.y - p1.y) * (p2.y - q1.y) <= 0)
+        return true;
+
+    if (o3 == 0 && (q2.x - p2.x) * (q2.x - q1.x) <= 0 && (q2.y - p2.y) * (q2.y - q1.y) <= 0)
+        return true;
+
+    if (o4 == 0 && (q2.x - p2.x) * (q2.x - q1.x) <= 0 && (q2.y - p2.y) * (q2.y - q1.y) <= 0)
+        return true;
+
+    return false;
+}
+
+// Function to check if two polygons intersect
+bool doPolygonsIntersect(const Polygon& polygon1, const Polygon& polygon2)
+{
+    int n1 = polygon1.points.size();
+    int n2 = polygon2.points.size();
+
+    for (int i = 0; i < n1; i++)
+    {
+        int j = (i + 1) % n1;
+        for (int k = 0; k < n2; k++)
+        {
+            int l = (k + 1) % n2;
+            if (doLineSegmentsIntersect(polygon1.points[i], polygon1.points[j], polygon2.points[k], polygon2.points[l]))
+                return true;
+        }
+    }
+
+    return false;
 }
