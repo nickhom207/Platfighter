@@ -2,10 +2,14 @@
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
 #include "Map.hpp"
+#include "CollisionManager.hpp"
 
 GameObject* player;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+CollisionManager collisionManager;
+SDL_Rect rect1, rect2;
+
 
 Game::Game()
 {}
@@ -46,6 +50,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	player = new GameObject("assets/face.png", 0, 0);
 	map = new Map();
+	rect1 = { 0, 0, 10, 10 };
+	rect2 = { 15, 0, 5, 5 }; // TestingUse
+
 }
 
 void Game::handleEvents()
@@ -84,6 +91,14 @@ void Game::update()
 	/*
 	cnt++;
 	std::cout << cnt << std::endl; */
+
+	if (collisionManager.CheckCollision(rect1, rect2, { 50, 0 }, 1.0f / 60.0f)) {
+		std::cout << "Collision detected!" << std::endl;
+	}
+	else {
+		std::cout << "Collision NOT detected!" << std::endl;
+	}
+
 }
 
 void Game::render()

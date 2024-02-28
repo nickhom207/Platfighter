@@ -108,13 +108,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Nick\source\repos\Platfighter\SDL2_image-2.0.1\include;C:\Users\Nick\source\repos\Platfighter\SDL2\include;C:\Users\kiwwi\Desktop\CS438\Platfighter\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\SDL2_image-2.0.1\include;C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\SDL2\include;C:\Users\Nick\source\repos\Platfighter\SDL2_image-2.0.1\include;C:\Users\Nick\source\repos\Platfighter\SDL2\include;C:\Users\kiwwi\Desktop\CS438\Platfighter\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Nick\source\repos\Platfighter\SDL2_image-2.0.1\lib\x64;C:\Users\Nick\source\repos\Platfighter\SDL2\lib\x64;C:\Users\kiwwi\Desktop\CS438\Platfighter\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\SDL2_image-2.0.1\lib\x64;C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\SDL2\lib\x64;C:\Users\Nick\source\repos\Platfighter\SDL2_image-2.0.1\lib\x64;C:\Users\Nick\source\repos\Platfighter\SDL2\lib\x64;C:\Users\kiwwi\Desktop\CS438\Platfighter\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Audio.cpp" />
+    <ClCompile Include="Src\CollisionManager.cpp" />
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\main.cpp" />
