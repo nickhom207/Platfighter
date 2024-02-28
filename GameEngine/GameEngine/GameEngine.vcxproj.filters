@@ -21,10 +21,59 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Audio.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\slnx.sqlite" />
+    <None Include=".vs\VSWorkspaceState.json" />
+    <None Include="Debug\vc143.idb" />
+    <None Include="Debug\vc143.pdb" />
+    <None Include="SDL2.dll" />
+    <None Include="zlib1.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="libpng16-16.dll" />
+    <None Include="x64\Debug\GameEngine.exe.recipe" />
+    <None Include="x64\Debug\GameEngine.ilk" />
+    <None Include="x64\Debug\vc143.idb" />
+    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="Debug\GameEngine.tlog\CL.command.1.tlog" />
+    <None Include="Debug\GameEngine.tlog\GameEngine.lastbuildstate" />
+    <None Include="Debug\GameEngine.tlog\unsuccessfulbuild" />
+    <None Include=".vs\ProjectSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\red_square.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\face.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\Audio.obj" />
+    <Object Include="x64\Debug\Game.obj" />
+    <Object Include="x64\Debug\main.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\GameEngine.log" />
   </ItemGroup>
 </Project>
