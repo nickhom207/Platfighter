@@ -1,5 +1,2 @@
-﻿  Game.cpp
-x64\Debug\Audio.obj : warning LNK4042: object specified more than once; extras ignored
-x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
-x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
+﻿  GameObject.cpp
   GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe

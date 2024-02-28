@@ -134,15 +134,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Audio.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Src\Audio.cpp" />
+    <ClCompile Include="Src\Game.cpp" />
+    <ClCompile Include="Src\GameObject.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureManager.hpp" />
-    <ClInclude Include="Audio.hpp" />
-    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Src\GameObject.hpp" />
+    <ClInclude Include="Src\TextureManager.hpp" />
+    <ClInclude Include="Src\Audio.hpp" />
+    <ClInclude Include="Src\Game.hpp" />
     <ClInclude Include="SDL.h" />
   </ItemGroup>
   <ItemGroup>
