@@ -1,13 +1,17 @@
 #include "GameObject.hpp"
 #include "TextureManager.hpp"
 
-GameObject::GameObject(const char* texturesheet, SDL_Renderer* ren, int x, int y)
+GameObject::GameObject(const char* texturesheet, int x, int y)
 {
-	renderer = ren;
-	objTexture = TextureManager::LoadTexture(texturesheet, ren);
+	objTexture = TextureManager::LoadTexture(texturesheet);
 
 	xpos = x;
 	ypos = y;
+	
+	xmaxspeed = 10;
+	ymaxspeed = 10;
+	xacceleration = 2;
+	yacceleration = 2;
 }
 
 void GameObject::Update()
@@ -25,5 +29,24 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-	SDL_RenderCopy(renderer, objTexture, &srcRect, &destRect);
+	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
+}
+
+void GameObject::Move(int command) {
+	switch (command) {
+	case 0:
+		ypos += yspeed;
+		break;
+	case 1:
+		xpos -= xspeed;
+		break;
+	case 2:
+		ypos -= yspeed;
+		break;
+	case 3:
+		xpos += xspeed;
+		break;
+	default:
+		break;
+	}
 }

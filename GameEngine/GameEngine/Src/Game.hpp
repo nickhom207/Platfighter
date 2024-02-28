@@ -19,11 +19,12 @@ public:
 
 	bool running() { return isRunning; }
 
+	static SDL_Renderer* renderer;
+
 private:
 	int cnt;
 	bool isRunning;
 	SDL_Window *window;
-	SDL_Renderer *renderer;
 };
 
 #endif /* Game_hpp */
