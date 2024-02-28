@@ -15,6 +15,8 @@ private:
 	int xpos;
 	int ypos;
 
+	int xspeed;
+	int yspeed;
 	int xmaxspeed;
 	int ymaxspeed;
 	int xacceleration;

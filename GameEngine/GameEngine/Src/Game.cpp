@@ -81,8 +81,9 @@ void Game::handleEvents()
 void Game::update()
 {
 	player->Update();
+	/*
 	cnt++;
-	std::cout << cnt << std::endl;
+	std::cout << cnt << std::endl; */
 }
 
 void Game::render()
