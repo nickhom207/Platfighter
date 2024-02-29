@@ -1,2 +1,15 @@
-﻿  Game.cpp
+﻿  Audio.cpp
+  CollisionManager.cpp
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\CollisionManager.cpp(137,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\CollisionManager.cpp(138,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+  GameObject.cpp
+  main.cpp
+  map.cpp
+  TextureManager.cpp
+  Generating Code...
+  LINK : C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe not found or not built by the last incremental link; performing full link
+x64\Debug\Audio.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
   GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe
