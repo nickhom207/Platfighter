@@ -1,2 +1,14 @@
-﻿  map.cpp
-  GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe
+﻿  Audio.cpp
+  CollisionManager.cpp
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\GameEngine\Src\CollisionManager.cpp(142,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\GameEngine\Src\CollisionManager.cpp(143,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+  GameObject.cpp
+  main.cpp
+  map.cpp
+  TextureManager.cpp
+  Generating Code...
+x64\Debug\Audio.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
+  GameEngine.vcxproj -> C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
