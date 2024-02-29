@@ -2,8 +2,10 @@
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
 #include "Map.hpp"
+#include "Audio.hpp"
 
 GameObject* player;
+Audio sound;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -11,6 +13,8 @@ Game::Game()
 {}
 Game::~Game()
 {}
+
+bool jumpSound = false;
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -22,6 +26,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
+		SDL_Init(SDL_INIT_EVERYTHING);
+
 		std::cout << "Subsustems Initialized" << std::endl;
 
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
@@ -85,6 +91,17 @@ void Game::getInputs()
 	if (keystate[SDL_SCANCODE_W])
 	{
 		player->Jump();
+		sound.load("assets/jump.wav");
+		if (!jumpSound)
+		{
+			sound.load("assets/jump.wav");
+			sound.play();
+			jumpSound = true;
+		}
+	}
+	else
+	{
+		jumpSound = false;
 	}
 }
 
