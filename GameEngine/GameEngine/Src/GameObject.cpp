@@ -7,6 +7,7 @@ GameObject::GameObject(const char* texturesheet, int x, int y)
 
 	xpos = x;
 	ypos = y;
+	ystart = y;
 	
 	xspeed = 0;
 	yspeed = 0;
@@ -18,7 +19,7 @@ GameObject::GameObject(const char* texturesheet, int x, int y)
 
 void GameObject::Update()
 {
-	std::cout << xspeed << std::endl;
+	/*std::cout << xspeed << std::endl;*/
 	std::cout << yspeed << std::endl;
 
 	srcRect.h = 64;
@@ -30,6 +31,19 @@ void GameObject::Update()
 	destRect.y = ypos;
 	destRect.w = srcRect.w;
 	destRect.h = srcRect.h;
+
+	xpos += xspeed;
+	if (ypos < ystart)
+		yspeed += 5;
+	else if (ypos > ystart)
+		yspeed = 0;
+	if (ypos + yspeed > ystart)
+	{
+		ypos = ystart;
+		yspeed = 0;
+	}
+	else
+		ypos += yspeed;
 }
 
 void GameObject::Render()
@@ -39,31 +53,32 @@ void GameObject::Render()
 
 void GameObject::Move(int command) {
 	switch (command) {
+	/*jump*/
 	case 0:
-		if(yspeed < ymaxspeed)
-			yspeed += yacceleration;
-		ypos -= yspeed;
+		if(yspeed == 0)
+			yspeed = -50;
 		break;
+	/*left*/
 	case 1:
-		if (xspeed < xmaxspeed)
-			xspeed += xacceleration;
-		xpos -= xspeed;
+		if (xspeed < xmaxspeed and xspeed > xmaxspeed * -1)
+			xspeed -= xacceleration;
 		break;
 	case 2:
-		if (yspeed < ymaxspeed)
-			yspeed += yacceleration;
-		ypos += yspeed;
 		break;
+	/*right*/
 	case 3:
-		if (xspeed < xmaxspeed)
+		if (xspeed < xmaxspeed and xspeed > xmaxspeed * -1)
 			xspeed += xacceleration;
-		xpos += xspeed;
+		break;
+	/*stopping*/
+	case 4:
+		xspeed /= 2;
 		break;
 	default:
-		if (xspeed > 0)
-			xspeed -= xacceleration;
-		if (yspeed > 0)
-			yspeed -= yacceleration;
 		break;
 	}
+}
+
+void GameObject::Move2() {
+	
 }

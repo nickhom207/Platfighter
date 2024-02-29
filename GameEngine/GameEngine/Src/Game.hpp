@@ -16,6 +16,7 @@ public:
 	void update();
 	void render();
 	void clean();
+	void getInputs();
 
 	bool running() { return isRunning; }
 

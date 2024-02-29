@@ -44,7 +44,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new GameObject("assets/face.png", 0, 0);
+	player = new GameObject("assets/face.png", 400, 512);
 	map = new Map();
 }
 
@@ -53,28 +53,40 @@ void Game::handleEvents()
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type) {
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_w:
-				player->Move(0);
-				break;
-			case SDLK_a:
-				player->Move(1);
-				break;
-			case SDLK_s:
-				player->Move(2);
-				break;
-			case SDLK_d:
-				player->Move(3);
-				break;
-			default:
-				break;
-			}
-		default:
-			break;
+	case SDL_QUIT:
+		isRunning = false;
+		break;
+	default:
+		break;
+	}
+}
+
+void Game::getInputs()
+{
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+	if (keystate[SDL_SCANCODE_W])
+	{
+		player->Move(0);
+	}
+	else if (keystate[SDL_SCANCODE_A] and keystate[SDL_SCANCODE_D])
+	{
+		player->Move(4);
+	}
+	else if (keystate[SDL_SCANCODE_A])
+	{
+		player->Move(1);
+	}
+	else if (keystate[SDL_SCANCODE_S])
+	{
+	}
+	else if (keystate[SDL_SCANCODE_D])
+	{
+		player->Move(3);
+	}
+	else
+	{
+		player->Move(4);
 	}
 }
 

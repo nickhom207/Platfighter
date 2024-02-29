@@ -10,10 +10,12 @@ public:
 	void Update();
 	void Render();
 	void Move(int command);
+	void Move2();
 
 private:
 	int xpos;
 	int ypos;
+	int ystart;
 
 	int xspeed;
 	int yspeed;
