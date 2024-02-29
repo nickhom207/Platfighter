@@ -30,6 +30,12 @@
     <ClCompile Include="Src\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game.hpp">
@@ -45,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -67,10 +76,16 @@
     <None Include=".vs\ProjectSettings.json" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\red_square.jpg">
+    <Image Include="Assets\face.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\face.png">
+    <Image Include="Assets\black_square.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\blue_square.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\red_square.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
