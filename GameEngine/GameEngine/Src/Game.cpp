@@ -65,28 +65,26 @@ void Game::getInputs()
 {
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
-	if (keystate[SDL_SCANCODE_W])
+	if (keystate[SDL_SCANCODE_A] and keystate[SDL_SCANCODE_D])
 	{
-		player->Move(0);
-	}
-	else if (keystate[SDL_SCANCODE_A] and keystate[SDL_SCANCODE_D])
-	{
-		player->Move(4);
+		player->MoveHorizontal(2);
 	}
 	else if (keystate[SDL_SCANCODE_A])
 	{
-		player->Move(1);
-	}
-	else if (keystate[SDL_SCANCODE_S])
-	{
+		player->MoveHorizontal(0);
 	}
 	else if (keystate[SDL_SCANCODE_D])
 	{
-		player->Move(3);
+		player->MoveHorizontal(1);
 	}
 	else
 	{
-		player->Move(4);
+		player->MoveHorizontal(2);
+	}
+
+	if (keystate[SDL_SCANCODE_W])
+	{
+		player->Jump();
 	}
 }
 

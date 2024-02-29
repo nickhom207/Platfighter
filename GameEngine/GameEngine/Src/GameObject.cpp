@@ -15,12 +15,16 @@ GameObject::GameObject(const char* texturesheet, int x, int y)
 	ymaxspeed = 20;
 	xacceleration = 2;
 	yacceleration = 2;
+	xdecceleration = 2;
+	ydecceleration = 2;
+	jumpforce = 50;
+	fallspeed = -5;
 }
 
 void GameObject::Update()
 {
-	/*std::cout << xspeed << std::endl;*/
-	std::cout << yspeed << std::endl;
+	std::cout << xspeed << std::endl;
+	/*std::cout << yspeed << std::endl;*/
 
 	srcRect.h = 64;
 	srcRect.w = 64;
@@ -34,7 +38,7 @@ void GameObject::Update()
 
 	xpos += xspeed;
 	if (ypos < ystart)
-		yspeed += 5;
+		yspeed -= fallspeed;
 	else if (ypos > ystart)
 		yspeed = 0;
 	if (ypos + yspeed > ystart)
@@ -51,34 +55,28 @@ void GameObject::Render()
 	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
 }
 
-void GameObject::Move(int command) {
+void GameObject::MoveHorizontal(int command) {
 	switch (command) {
-	/*jump*/
-	case 0:
-		if(yspeed == 0)
-			yspeed = -50;
-		break;
 	/*left*/
-	case 1:
-		if (xspeed < xmaxspeed and xspeed > xmaxspeed * -1)
+	case 0:
+		if (xspeed > xmaxspeed * -1)
 			xspeed -= xacceleration;
 		break;
-	case 2:
-		break;
 	/*right*/
-	case 3:
-		if (xspeed < xmaxspeed and xspeed > xmaxspeed * -1)
+	case 1:
+		if (xspeed < xmaxspeed)
 			xspeed += xacceleration;
 		break;
 	/*stopping*/
-	case 4:
-		xspeed /= 2;
+	case 2:
+		xspeed /= xdecceleration;
 		break;
 	default:
 		break;
 	}
 }
 
-void GameObject::Move2() {
-	
+void GameObject::Jump() {
+	if (ypos == ystart and yspeed == 0)
+		yspeed = -jumpforce;
 }

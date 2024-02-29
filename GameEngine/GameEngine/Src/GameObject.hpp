@@ -9,8 +9,8 @@ public:
 
 	void Update();
 	void Render();
-	void Move(int command);
-	void Move2();
+	void MoveHorizontal(int command);
+	void Jump();
 
 private:
 	int xpos;
@@ -23,6 +23,10 @@ private:
 	int ymaxspeed;
 	int xacceleration;
 	int yacceleration;
+	int xdecceleration;
+	int ydecceleration;
+	int jumpforce;
+	int fallspeed;
 
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
