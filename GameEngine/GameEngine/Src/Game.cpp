@@ -3,11 +3,21 @@
 #include "GameObject.hpp"
 #include "Map.hpp"
 #include "Audio.hpp"
+#include "CollisionManager.hpp"
 
 GameObject* player;
 Audio sound;
+
+GameObject* box;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+
+CollisionManager collisionManager;
+SDL_Rect rect1, rect2;
+
+
+
+
 
 Game::Game()
 {}
@@ -51,7 +61,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	player = new GameObject("assets/face.png", 400, 512);
+	box = new GameObject("assets/face.png", 500, 512);
 	map = new Map();
+	rect1 = { 0, 0, 10, 10 };
+	rect2 = { 15, 0, 5, 5 }; // For testing
 }
 
 void Game::handleEvents()
@@ -108,9 +121,18 @@ void Game::getInputs()
 void Game::update()
 {
 	player->Update();
+	box->Update();
 	/*
 	cnt++;
 	std::cout << cnt << std::endl; */
+
+	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), box->GetCollisionTopLeftPoint(), box->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
+		std::cout << "Collision detected!" << std::endl;
+	}
+	else {
+		std::cout << "Collision NOT detected!" << std::endl;
+	}
+
 }
 
 void Game::render()
@@ -118,6 +140,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	player->Render();
+	box->Render();
 	SDL_RenderPresent(renderer);
 }
 

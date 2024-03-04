@@ -1,6 +1,5 @@
-#ifndef Collision_hpp
-#define Collision_hpp
-#include "SDL.h"
+#pragma once
+#include "Game.hpp"
 
 struct Rectangle {
 	float x, y; // Top-left corner position
@@ -12,9 +11,8 @@ class CollisionManager {
 public:
 	CollisionManager();
 	~CollisionManager();
-	bool CheckCollision(const SDL_Rect a, const SDL_Rect b, SDL_Point a_speed, float deltaTime);
+	bool CheckCollision(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2, SDL_Point a_speed, float deltaTime);
 private:
 
 };
 
-#endif /* CollisionManager_hpp */

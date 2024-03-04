@@ -8,6 +8,11 @@ GameObject::GameObject(const char* texturesheet, int x, int y)
 	xpos = x;
 	ypos = y;
 	ystart = y;
+	//For Collision:
+	height = 64;
+	width = 64;
+	topLeftPoint = SDL_Point{ xpos - width / 2 , ypos + height / 2 };
+	bottomRightPoint = SDL_Point{ xpos + width / 2 , ypos - height / 2 };
 	
 	xspeed = 0;
 	yspeed = 0;
@@ -48,6 +53,10 @@ void GameObject::Update()
 	}
 	else
 		ypos += yspeed;
+
+	//Collision
+	topLeftPoint = SDL_Point{ xpos - width / 2 , ypos + height / 2 };
+	bottomRightPoint = SDL_Point{ xpos + width / 2 , ypos - height / 2 };
 }
 
 void GameObject::Render()
@@ -79,4 +88,16 @@ void GameObject::MoveHorizontal(int command) {
 void GameObject::Jump() {
 	if (ypos == ystart and yspeed == 0)
 		yspeed = -jumpforce;
+}
+
+SDL_Point GameObject::GetCollisionTopLeftPoint() {
+	return topLeftPoint;
+}
+
+SDL_Point GameObject::GetCollisionBottomRightPoint() {
+	return bottomRightPoint;
+}
+
+SDL_Point GameObject::GetSpeed() {
+	return SDL_Point{ xspeed, yspeed };
 }
