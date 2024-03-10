@@ -14,7 +14,7 @@ private:
     Uint32 wavLength;
     Uint8* wavBuffer;
     SDL_AudioDeviceID deviceId;
-    int volume = 2;
+    int volume = 30;
 };
 
 #endif /* Audio_hpp */

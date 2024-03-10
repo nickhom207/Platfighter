@@ -1,20 +1,30 @@
 #include "Game.hpp"
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
-#include "PlayerObject.hpp"
 #include "Map.hpp"
+#include "Audio.hpp"
 #include "CollisionManager.hpp"
 
-PlayerObject* player;
+GameObject* player;
+Audio sound;
+
 GameObject* box;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+
 CollisionManager collisionManager;
+SDL_Rect rect1, rect2;
+
+
+
+
 
 Game::Game()
 {}
 Game::~Game()
 {}
+
+bool jumpSound = false;
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -26,6 +36,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
+		SDL_Init(SDL_INIT_EVERYTHING);
+
 		std::cout << "Subsustems Initialized" << std::endl;
 
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
@@ -48,9 +60,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new PlayerObject("assets/face.png", 400, 512);
-	box = new GameObject("red)square.png", 500, 512);
+	player = new GameObject("assets/face.png", 400, 512);
+	box = new GameObject("assets/face.png", 500, 512);
 	map = new Map();
+	rect1 = { 0, 0, 10, 10 };
+	rect2 = { 15, 0, 5, 5 }; // For testing
 }
 
 void Game::handleEvents()
@@ -90,12 +104,28 @@ void Game::getInputs()
 	if (keystate[SDL_SCANCODE_W])
 	{
 		player->Jump();
+		sound.load("assets/jump.wav");
+		if (!jumpSound)
+		{
+			sound.load("assets/jump.wav");
+			sound.play();
+			jumpSound = true;
+		}
+	}
+	else
+	{
+		jumpSound = false;
 	}
 }
 
 void Game::update()
 {
 	player->Update();
+	box->Update();
+	/*
+	cnt++;
+	std::cout << cnt << std::endl; */
+
 	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), box->GetCollisionTopLeftPoint(), box->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		std::cout << "Collision detected!" << std::endl;
 	}
@@ -103,9 +133,6 @@ void Game::update()
 		std::cout << "Collision NOT detected!" << std::endl;
 	}
 
-	/*
-	cnt++;
-	std::cout << cnt << std::endl; */
 }
 
 void Game::render()
@@ -113,6 +140,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	player->Render();
+	box->Render();
 	SDL_RenderPresent(renderer);
 }
 

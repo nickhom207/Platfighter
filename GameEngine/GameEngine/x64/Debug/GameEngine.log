@@ -1,7 +1,2 @@
 ﻿  Game.cpp
-C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Game.cpp(99,22): error C2660: 'CollisionManager::CheckCollision': function does not take 6 arguments
-C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\CollisionManager.hpp(15,7): message : see declaration of 'CollisionManager::CheckCollision'
-C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Game.cpp(99,22): message : while trying to match the argument list '(SDL_Point, SDL_Point, SDL_Point, SDL_Point, SDL_Point, float)'
-  GameObject.cpp
-  PlayerObject.cpp
-  Generating Code...
+  GameEngine.vcxproj -> C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe

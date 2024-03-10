@@ -2,9 +2,7 @@
 #include "CollisionManager.hpp"
 #include <iostream>
 #include <vector>
-
-
-
+#include "GameObject.hpp"
 
 CollisionManager::CollisionManager() {
 
@@ -13,7 +11,8 @@ CollisionManager::~CollisionManager() {
 
 }
 
-bool CollisionManager::CheckCollision(const SDL_Rect a, const SDL_Rect b, SDL_Point a_speed, float deltaTime) {
+bool CollisionManager::CheckCollision( SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2,SDL_Point a_speed, float deltaTime) {
+
 
     int leftA, leftB;
     int rightA, rightB;
@@ -21,17 +20,18 @@ bool CollisionManager::CheckCollision(const SDL_Rect a, const SDL_Rect b, SDL_Po
     int bottomA, bottomB;
 
 
-    leftA = a.x;
-    rightA = a.x + a.w;
-    topA = a.y;
-    bottomA = a.y + a.h;
+    leftA = p1.x;
+    rightA = q1.x;
+    topA = p1.y;
+    bottomA = q1.y;
 
-    leftB = b.x;
-    rightB = b.x + b.w;
-    topB = b.y;
-    bottomB = b.y + b.h;
+    leftB = p2.x;
+    rightB = q2.x;
+    topB = p2.y;
+    bottomB = q2.y;
 
 
+    /*
     if (a_speed.x > 0) {
         rightA = rightA + a_speed.x;
     }
@@ -45,29 +45,24 @@ if (a_speed.y > 0) {
 else {
     bottomA = bottomA - a_speed.y;
 }
+*/
 
+    if (leftA < rightB && rightA > leftB ) {
+        return true;
+    }
 
-if (bottomA <= topB)
-{
+    if (leftB < rightA && rightB > leftA) {
+        return true;
+    }
+
+    if (topA > bottomB && bottomA > topB) {
+        return true;
+    }
+    if (topB > bottomA && bottomB > topA) {
+        return true;
+    }
+
     return false;
-}
-
-if (topA >= bottomB)
-{
-    return false;
-}
-
-if (rightA <= leftB)
-{
-    return false;
-}
-
-if (leftA >= rightB)
-{
-    return false;
-}
-
-return true;
 /*
 // Calculate the future position of the rectangles
 float rect1FutureX = rect1.x + rect1.velocityX * deltaTime;
@@ -104,10 +99,16 @@ struct Polygon
 {
     std::vector<SDL_Point> points;
 };
-
+/*
 // Function to check if two line segments intersect
-bool doLineSegmentsIntersect(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2)
-{
+bool doLineSegmentsIntersect(GameObject object1, GameObject object2)
+{   
+    SDL_Point p1 = object1.GetCollisionTopLeftPoint();
+    SDL_Point q1 = object1.GetCollisionBottomRightPoint();
+
+    SDL_Point p2 = object2.GetCollisionTopLeftPoint();
+    SDL_Point q2 = object2.GetCollisionBottomRightPoint();
+
     int o1 = (q1.x - p1.x) * (p2.y - p1.y) - (p2.x - p1.x) * (q1.y - p1.y);
     int o2 = (q1.x - p1.x) * (q2.y - p1.y) - (q2.x - p1.x) * (q1.y - p1.y);
     int o3 = (q2.x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (q2.y - p2.y);
@@ -132,6 +133,7 @@ bool doLineSegmentsIntersect(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point
 }
 
 // Function to check if two polygons intersect
+
 bool doPolygonsIntersect(const Polygon& polygon1, const Polygon& polygon2)
 {
     int n1 = polygon1.points.size();
@@ -143,10 +145,11 @@ bool doPolygonsIntersect(const Polygon& polygon1, const Polygon& polygon2)
         for (int k = 0; k < n2; k++)
         {
             int l = (k + 1) % n2;
-            if (doLineSegmentsIntersect(polygon1.points[i], polygon1.points[j], polygon2.points[k], polygon2.points[l]))
-                return true;
+            //if (doLineSegmentsIntersect(polygon1.points[i], polygon1.points[j], polygon2.points[k], polygon2.points[l]))
+                //return true;
         }
     }
 
     return false;
 }
+*/
