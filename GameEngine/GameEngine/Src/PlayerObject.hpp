@@ -25,6 +25,7 @@ public:
 	SDL_Point GetSpeed();
 
 	bool shootingCooldown;
+	bool isFacingRight;
 
 private:
 	int xpos;

@@ -58,11 +58,13 @@ void PlayerObject::MoveHorizontal(int command) {
 	switch (command) {
 		/*left*/
 	case 0:
+		isFacingRight = false;
 		if (xspeed > xmaxspeed * -1)
 			xspeed -= xacceleration;
 		break;
 		/*right*/
 	case 1:
+		isFacingRight = true;
 		if (xspeed < xmaxspeed)
 			xspeed += xacceleration;
 		break;

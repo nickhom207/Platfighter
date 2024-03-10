@@ -60,3 +60,6 @@ void GameObject::SetSpeed(int x, int y) {
 	yspeed = y;
 
 }
+SDL_Point GameObject::GetSpeed() {
+	return SDL_Point{ xspeed, yspeed };
+}
