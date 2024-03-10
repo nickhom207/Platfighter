@@ -82,6 +82,7 @@ void PlayerObject::Jump() {
 	}
 }
 
+
 void PlayerObject::setY(int y) {
 	ypos = y;
 }
@@ -111,4 +112,15 @@ SDL_Point PlayerObject::GetCollisionBottomRightPoint() {
 
 SDL_Point PlayerObject::GetSpeed() {
 	return SDL_Point{ xspeed, yspeed };
+}
+
+int PlayerObject::GetXPos() {
+	return xpos;
+}
+int PlayerObject::GetYPos() {
+	return ypos;
+}
+
+bool PlayerObject::CoolDown() {
+	shootingCooldown = false;
 }

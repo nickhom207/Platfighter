@@ -1,2 +1,7 @@
-﻿  PlayerObject.cpp
-  GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe
+﻿  Game.cpp
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(126,60): error C3867: 'PlayerObject::CoolDown': non-standard syntax; use '&' to create a pointer to member
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(126,25): error C2660: 'SDL_AddTimer': function does not take 2 arguments
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\SDL2\include\SDL_timer.h(196,37): message : see declaration of 'SDL_AddTimer'
+C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(126,25): message : while trying to match the argument list '(int)'
+  PlayerObject.cpp
+  Generating Code...

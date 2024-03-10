@@ -1,3 +1,4 @@
+#include <vector> 
 #include "Game.hpp"
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
@@ -11,6 +12,7 @@ GameObject* lowerBound;
 GameObject* leftBound;
 GameObject* rightBound;
 GameObject* stage;
+std::vector<GameObject*> attacks;
 Audio sound;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
@@ -63,6 +65,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	rightBound = new GameObject("assets/red_square.png", 1400, 360, 900, 4);
 	stage = new GameObject("assets/main_platform.png", 192, 576, 64, 896);
 	map = new Map();
+	
 }
 
 void Game::handleEvents()
@@ -114,6 +117,14 @@ void Game::getInputs()
 	{
 		jumpSound = false;
 	}
+
+	if (keystate[SDL_SCANCODE_K])
+	{
+		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
+		attack->SetSpeed(10,0);
+		attacks.push_back(attack);
+		SDL_TimerID timerID = SDL_AddTimer(1000, player->CoolDown, NULL);
+	}
 }
 
 void Game::update()
@@ -121,6 +132,11 @@ void Game::update()
 	player->Update();
 	lowerBound->Update();
 	stage->Update();
+	if (attacks.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			attacks[i]->Update();
+		}
+	}
 	//stage collision
 	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
@@ -133,6 +149,8 @@ void Game::update()
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->respawn();
 	}
+
+
 }
 
 void Game::render()
@@ -142,6 +160,12 @@ void Game::render()
 	lowerBound->Render();
 	stage->Render();
 	player->Render();
+	if (attacks.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			attacks[i]->Render();
+		}
+	}
+
 	SDL_RenderPresent(renderer);
 }
 

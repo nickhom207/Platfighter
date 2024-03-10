@@ -17,9 +17,15 @@ public:
 	void setYspeed(int y);
 	void giveJump();
 
+	int GetXPos();
+	int GetYPos();
+
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();
 	SDL_Point GetSpeed();
+
+	bool shootingCooldown;
+	void CoolDown();
 
 private:
 	int xpos;
