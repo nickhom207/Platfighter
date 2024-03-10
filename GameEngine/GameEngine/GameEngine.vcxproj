@@ -175,6 +175,7 @@
     <Image Include="Assets\black_square.png" />
     <Image Include="Assets\blue_square.png" />
     <Image Include="Assets\face.png" />
+    <Image Include="Assets\main_platform.png" />
     <Image Include="Assets\red_square.png" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Debug\GameEngine.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\jump.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

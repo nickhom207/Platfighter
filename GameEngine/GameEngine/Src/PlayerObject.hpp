@@ -12,6 +12,11 @@ public:
 	void MoveHorizontal(int command);
 	void Jump();
 
+	void setY(int y);
+	void respawn();
+	void setYspeed(int y);
+	void giveJump();
+
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();
 	SDL_Point GetSpeed();
@@ -19,7 +24,6 @@ public:
 private:
 	int xpos;
 	int ypos;
-	int ystart;
 
 	int xspeed;
 	int yspeed;
@@ -31,6 +35,7 @@ private:
 	int ydecceleration;
 	int jumpforce;
 	int fallspeed;
+	bool hasJump;
 
 	int width;
 	int height;

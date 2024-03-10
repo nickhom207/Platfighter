@@ -1,38 +1,25 @@
 #include "GameObject.hpp"
 #include "TextureManager.hpp"
 
-GameObject::GameObject(const char* texturesheet, int x, int y)
+GameObject::GameObject(const char* texturesheet, int x, int y, int h, int w)
 {
 	objTexture = TextureManager::LoadTexture(texturesheet);
 
 	xpos = x;
 	ypos = y;
 	ystart = y;
-	//For Collision:
-	height = 64;
-	width = 64;
-	topLeftPoint = SDL_Point{ xpos - width / 2 , ypos + height / 2 };
-	bottomRightPoint = SDL_Point{ xpos + width / 2 , ypos - height / 2 };
-	
-	xspeed = 0;
-	yspeed = 0;
-	xmaxspeed = 20;
-	ymaxspeed = 20;
-	xacceleration = 2;
-	yacceleration = 2;
-	xdecceleration = 2;
-	ydecceleration = 2;
-	jumpforce = 50;
-	fallspeed = -5;
+
+	//Collision:
+	height = h;
+	width = w;
+	topLeftPoint = SDL_Point{ xpos, ypos };
+	bottomRightPoint = SDL_Point{ xpos + width, ypos + height};
 }
 
 void GameObject::Update()
 {
-	std::cout << xspeed << std::endl;
-	/*std::cout << yspeed << std::endl;*/
-
-	srcRect.h = 64;
-	srcRect.w = 64;
+	srcRect.h = height;
+	srcRect.w = width;
 	srcRect.x = 0;
 	srcRect.y = 0;
 
@@ -41,53 +28,15 @@ void GameObject::Update()
 	destRect.w = srcRect.w;
 	destRect.h = srcRect.h;
 
-	xpos += xspeed;
-	if (ypos < ystart)
-		yspeed -= fallspeed;
-	else if (ypos > ystart)
-		yspeed = 0;
-	if (ypos + yspeed > ystart)
-	{
-		ypos = ystart;
-		yspeed = 0;
-	}
-	else
-		ypos += yspeed;
-
+	/*
 	//Collision
-	topLeftPoint = SDL_Point{ xpos - width / 2 , ypos + height / 2 };
-	bottomRightPoint = SDL_Point{ xpos + width / 2 , ypos - height / 2 };
+	topLeftPoint = SDL_Point{ xpos, ypos };
+	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };*/
 }
 
 void GameObject::Render()
 {
 	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
-}
-
-void GameObject::MoveHorizontal(int command) {
-	switch (command) {
-	/*left*/
-	case 0:
-		if (xspeed > xmaxspeed * -1)
-			xspeed -= xacceleration;
-		break;
-	/*right*/
-	case 1:
-		if (xspeed < xmaxspeed)
-			xspeed += xacceleration;
-		break;
-	/*stopping*/
-	case 2:
-		xspeed /= xdecceleration;
-		break;
-	default:
-		break;
-	}
-}
-
-void GameObject::Jump() {
-	if (ypos == ystart and yspeed == 0)
-		yspeed = -jumpforce;
 }
 
 SDL_Point GameObject::GetCollisionTopLeftPoint() {
@@ -96,8 +45,4 @@ SDL_Point GameObject::GetCollisionTopLeftPoint() {
 
 SDL_Point GameObject::GetCollisionBottomRightPoint() {
 	return bottomRightPoint;
-}
-
-SDL_Point GameObject::GetSpeed() {
-	return SDL_Point{ xspeed, yspeed };
 }

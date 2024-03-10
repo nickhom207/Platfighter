@@ -6,7 +6,7 @@ class Map
 public:
 	Map();
 	~Map();
-	void LoadMap(int arr[20][25]);
+	void LoadMap(int arr[23][40]);
 	void DrawMap();
 
 private:
@@ -14,5 +14,5 @@ private:
 	SDL_Texture* block;
 	SDL_Texture* space;
 
-	int map[20][25];
+	int map[23][40];
 };

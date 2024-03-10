@@ -7,11 +7,9 @@ PlayerObject::PlayerObject(const char* texturesheet, int x, int y)
 
 	xpos = x;
 	ypos = y;
-	ystart = y;
 
 	xspeed = 0;
 	yspeed = 0;
-
 	xmaxspeed = 20;
 	ymaxspeed = 20;
 	xacceleration = 2;
@@ -20,16 +18,17 @@ PlayerObject::PlayerObject(const char* texturesheet, int x, int y)
 	ydecceleration = 2;
 	jumpforce = 50;
 	fallspeed = -5;
+	hasJump = false;
 	
 	width = 64;
 	height = 64;
-	topLeftPoint = SDL_Point{ xpos - width / 2 , ypos + height / 2 };
-	bottomRightPoint = SDL_Point{ xpos + width / 2 , ypos - height / 2 };
+	topLeftPoint = SDL_Point{ xpos, ypos };
+	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
 }
 
 void PlayerObject::Update()
 {
-	std::cout << xspeed << std::endl;
+	/*std::cout << xspeed << std::endl;*/
 	/*std::cout << yspeed << std::endl;*/
 
 	srcRect.h = 64;
@@ -43,17 +42,11 @@ void PlayerObject::Update()
 	destRect.h = srcRect.h;
 
 	xpos += xspeed;
-	if (ypos < ystart)
-		yspeed -= fallspeed;
-	else if (ypos > ystart)
-		yspeed = 0;
-	if (ypos + yspeed > ystart)
-	{
-		ypos = ystart;
-		yspeed = 0;
-	}
-	else
-		ypos += yspeed;
+	yspeed -= fallspeed;
+	ypos += yspeed;
+
+	topLeftPoint = SDL_Point{ xpos, ypos };
+	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
 }
 
 void PlayerObject::Render()
@@ -83,8 +76,29 @@ void PlayerObject::MoveHorizontal(int command) {
 }
 
 void PlayerObject::Jump() {
-	if (ypos == ystart and yspeed == 0)
+	if (yspeed == 0 && hasJump) {
 		yspeed = -jumpforce;
+		hasJump = false;
+	}
+}
+
+void PlayerObject::setY(int y) {
+	ypos = y;
+}
+
+void PlayerObject::respawn() {
+	xpos = 608;
+	ypos = 0;
+	yspeed = 1;
+	xspeed = 0;
+}
+
+void PlayerObject::setYspeed(int y) {
+	yspeed = y;
+}
+
+void PlayerObject::giveJump() {
+	hasJump = true;
 }
 
 SDL_Point PlayerObject::GetCollisionTopLeftPoint() {

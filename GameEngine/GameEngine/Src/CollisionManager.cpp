@@ -47,7 +47,27 @@ else {
 }
 */
 
+    // Nick's attempt
     if (leftA < rightB && rightA > leftB ) {
+        if (topA > bottomB || bottomA < topB) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    if (topA < bottomB && bottomA > topB) {
+        if (leftA > rightB || rightA < leftB) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    /*
+    if (leftA < rightB && rightA > leftB) {
         return true;
     }
 
@@ -58,9 +78,10 @@ else {
     if (topA > bottomB && bottomA > topB) {
         return true;
     }
+    
     if (topB > bottomA && bottomB > topA) {
         return true;
-    }
+    } */
 
     return false;
 /*
