@@ -123,10 +123,8 @@ void Game::getInputs()
 		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
 		attack->SetSpeed(10,0);
 		attacks.push_back(attack);
-		SDL_TimerID timerID = SDL_AddTimer(1000, player->CoolDown, NULL);
 	}
 }
-
 void Game::update()
 {
 	player->Update();
@@ -148,6 +146,12 @@ void Game::update()
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), leftBound->GetCollisionTopLeftPoint(), leftBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->respawn();
+	}
+
+	if (attacks.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			collisionManager.CheckCollision(attacks[i]->GetCollisionTopLeftPoint(), attacks[i]->GetCollisionBottomRightPoint(), )
+		}
 	}
 
 

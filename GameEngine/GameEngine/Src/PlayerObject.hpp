@@ -25,7 +25,6 @@ public:
 	SDL_Point GetSpeed();
 
 	bool shootingCooldown;
-	void CoolDown();
 
 private:
 	int xpos;

@@ -120,7 +120,3 @@ int PlayerObject::GetXPos() {
 int PlayerObject::GetYPos() {
 	return ypos;
 }
-
-bool PlayerObject::CoolDown() {
-	shootingCooldown = false;
-}
