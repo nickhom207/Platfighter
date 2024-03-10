@@ -140,11 +140,14 @@
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\map.cpp" />
+    <ClCompile Include="Src\PlayerObject.cpp" />
     <ClCompile Include="Src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\CollisionManager.hpp" />
     <ClInclude Include="Src\GameObject.hpp" />
     <ClInclude Include="Src\Map.hpp" />
+    <ClInclude Include="Src\PlayerObject.hpp" />
     <ClInclude Include="Src\TextureManager.hpp" />
     <ClInclude Include="Src\Audio.hpp" />
     <ClInclude Include="Src\Game.hpp" />
