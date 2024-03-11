@@ -83,6 +83,7 @@
     <None Include="Debug\GameEngine.tlog\GameEngine.lastbuildstate" />
     <None Include="Debug\GameEngine.tlog\unsuccessfulbuild" />
     <None Include=".vs\ProjectSettings.json" />
+    <None Include="SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\face.png">
@@ -97,6 +98,12 @@
     <Image Include="Assets\red_square.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\main_platform.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\target.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="x64\Debug\Audio.obj" />
@@ -105,5 +112,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Debug\GameEngine.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\jump.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\shoot.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

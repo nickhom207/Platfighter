@@ -17,6 +17,13 @@ std::vector<GameObject*> targets;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 CollisionManager collisionManager;
+Audio sound;
+
+int jump;
+int shoot;
+int respawnSound;
+
+bool keysPressed[SDL_NUM_SCANCODES] = { false };
 
 Game::Game()
 {}
@@ -57,6 +64,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
+	sound.INIT_Mixer();
+	int jump = sound.loadSound("Assets/jump.wav");
+	int shoot = sound.loadSound("Assets/shoot.wav");
+	std::cout << shoot << std::endl;
+	int respawnSound = sound.loadSound("Assets/respawn.wav");
+
 	player = new PlayerObject("assets/face.png", 400, 512);
 	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
 	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
@@ -81,8 +94,28 @@ void Game::handleEvents()
 	}
 }
 
+bool isJumping = false;
+bool isShooting = false;
+
 void Game::getInputs()
 {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_QUIT:
+			isRunning = false;
+			break;
+		case SDL_KEYDOWN:
+			keysPressed[event.key.keysym.scancode] = true;
+			break;
+		case SDL_KEYUP:
+			keysPressed[event.key.keysym.scancode] = false;
+			break;
+		default:
+			break;
+		}
+	}
+
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
 	if (keystate[SDL_SCANCODE_A] and keystate[SDL_SCANCODE_D])
@@ -102,30 +135,33 @@ void Game::getInputs()
 		player->MoveHorizontal(2);
 	}
 
-	if (keystate[SDL_SCANCODE_W])
-	{
+	//single activiation input
+	if (keysPressed[SDL_SCANCODE_W] and !isJumping) {
 		player->Jump();
+		isJumping = true;
+		int pan = ((player->GetXPos() - 640) * 100) / 640;
+		sound.playSound(jump, pan);
+	}
+	if(!keysPressed[SDL_SCANCODE_W]) {
+		isJumping = false;
+	}
+	if (keysPressed[SDL_SCANCODE_F] and !isShooting) {
+		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
+		if (player->isFacingRight) {
+			attack->SetSpeed(10, 0);
+		}
+		else {
+			attack->SetSpeed(-10, 0);
+		}
+		int pan = ((player->GetXPos() - 640) * 100) / 640;
+		sound.playSound(1, pan);
+		attacks.push_back(attack);
+		isShooting = true;
+	}
+	if (!keysPressed[SDL_SCANCODE_F]) {
+		isShooting = false;
 	}
 
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_k:
-				GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
-				if (player->isFacingRight) {
-					attack->SetSpeed(10, 0);
-				}
-				else {
-					attack->SetSpeed(-10, 0);
-				}
-				attacks.push_back(attack);
-				break;
-			}
-			break;
-		}
-	}
 }
 void Game::update()
 {
@@ -154,6 +190,8 @@ void Game::update()
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), leftBound->GetCollisionTopLeftPoint(), leftBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->respawn();
+		int pan = ((player->GetXPos() - 640) * 100) / 640;
+		sound.playSound(2, pan);
 	}
 	
 	if (attacks.size() != 0 && targets.size() != 0) {
@@ -196,5 +234,6 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+	sound.QUIT_Mixer();
 	std::cout << "Game cleaned" << std::endl;
 }
