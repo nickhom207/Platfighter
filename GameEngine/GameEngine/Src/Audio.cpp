@@ -1,6 +1,7 @@
 #include "Audio.hpp"
 #include <vector>
 #include <iostream>
+#include <string>
 
 std::vector<Mix_Chunk*> sounds;
 std::vector<Mix_Music*> music;

@@ -22,6 +22,7 @@ Audio sound;
 int jump;
 int shoot;
 int respawnSound;
+int surfaceHit;
 
 bool keysPressed[SDL_NUM_SCANCODES] = { false };
 
@@ -67,8 +68,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	sound.INIT_Mixer();
 	int jump = sound.loadSound("Assets/jump.wav");
 	int shoot = sound.loadSound("Assets/shoot.wav");
-	std::cout << shoot << std::endl;
 	int respawnSound = sound.loadSound("Assets/respawn.wav");
+	int surfaceHit = sound.loadSound("Assets/surfacehit.wav");
 
 	player = new PlayerObject("assets/face.png", 400, 512);
 	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
@@ -96,6 +97,7 @@ void Game::handleEvents()
 
 bool isJumping = false;
 bool isShooting = false;
+bool isGrounded = true;
 
 void Game::getInputs()
 {
@@ -184,12 +186,23 @@ void Game::update()
 		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
 		player->setYspeed(0);
 		player->giveJump();
+		if (!isGrounded) {
+			int pan = ((player->GetXPos() - 640) * 100) / 640;
+			sound.playSound(3, pan);
+			isGrounded = true;
+		}
 	}
+
+	if (!collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
+		isGrounded = false;
+	}
+
 	//outer bounds collision
 	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), lowerBound->GetCollisionTopLeftPoint(), lowerBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), leftBound->GetCollisionTopLeftPoint(), leftBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->respawn();
+		isGrounded = false;
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(2, pan);
 	}
