@@ -15,51 +15,110 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Src\Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlayerObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.hpp">
+    <ClInclude Include="Src\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.hpp">
+    <ClInclude Include="Src\Audio.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TextureManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Map.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\CollisionManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlayerObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".vs\slnx.sqlite" />
+    <None Include=".vs\VSWorkspaceState.json" />
+    <None Include="Debug\vc143.idb" />
+    <None Include="Debug\vc143.pdb" />
     <None Include="SDL2.dll" />
-    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="zlib1.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="libpng16-16.dll" />
     <None Include="x64\Debug\GameEngine.exe.recipe" />
     <None Include="x64\Debug\GameEngine.ilk" />
     <None Include="x64\Debug\vc143.idb" />
-    <None Include="x64\Debug\GameEngine.tlog\CL.command.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\Cl.items.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\CL.read.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\CL.write.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\GameEngine.lastbuildstate" />
-    <None Include="x64\Debug\GameEngine.tlog\link.command.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\link.read.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\link.secondary.1.tlog" />
-    <None Include="x64\Debug\GameEngine.tlog\link.write.1.tlog" />
+    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="Debug\GameEngine.tlog\CL.command.1.tlog" />
+    <None Include="Debug\GameEngine.tlog\GameEngine.lastbuildstate" />
+    <None Include="Debug\GameEngine.tlog\unsuccessfulbuild" />
+    <None Include=".vs\ProjectSettings.json" />
+    <None Include="SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\face.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\black_square.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\blue_square.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\red_square.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\main_platform.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\target.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\Audio.obj" />
     <Object Include="x64\Debug\Game.obj" />
-    <Object Include="x64\Debug\GameObject.obj" />
     <Object Include="x64\Debug\main.obj" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Debug\GameEngine.log" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Asset\dot.bmp">
+    <Media Include="Assets\jump.wav">
       <Filter>Resource Files</Filter>
-    </Image>
+    </Media>
+    <Media Include="Assets\shoot.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

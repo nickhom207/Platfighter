@@ -1,2 +1,8 @@
-C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\GameEngine\Game.cpp;C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\Game.obj
-C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\GameEngine\main.cpp;C:\Users\kiwwi\Desktop\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\main.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Audio.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\Audio.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\CollisionManager.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\CollisionManager.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\Game.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\GameObject.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\GameObject.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\main.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\main.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\map.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\map.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\PlayerObject.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\PlayerObject.obj
+C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\TextureManager.cpp;C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\x64\Debug\TextureManager.obj
