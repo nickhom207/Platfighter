@@ -95,7 +95,6 @@ void Game::handleEvents()
 	}
 }
 
-bool isJumping = false;
 bool isShooting = false;
 bool isGrounded = true;
 
@@ -138,15 +137,12 @@ void Game::getInputs()
 	}
 
 	//single activiation input
-	if (keysPressed[SDL_SCANCODE_W] and !isJumping) {
+	if (keysPressed[SDL_SCANCODE_W] and isGrounded) {
 		player->Jump();
-		isJumping = true;
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(jump, pan);
 	}
-	if(!keysPressed[SDL_SCANCODE_W]) {
-		isJumping = false;
-	}
+
 	if (keysPressed[SDL_SCANCODE_F] and !isShooting) {
 		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
 		if (player->isFacingRight) {
