@@ -13,7 +13,6 @@ public:
     void stop();
     void setVolume(int volume);
     void setPan(int channel, int pan);
-
     int INIT_Mixer();
     void QUIT_Mixer();
 

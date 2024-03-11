@@ -18,7 +18,6 @@ int Audio::loadSound(const char* filename) {
         printf("Failed to load audio - SDL_Mixer error: %s\n", Mix_GetError());
         return -1;
     }
-
     sounds.push_back(mchunk);
     return sounds.size() - 1;
 }
