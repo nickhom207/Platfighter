@@ -14,7 +14,6 @@ GameObject* rightBound;
 GameObject* stage;
 std::vector<GameObject*> attacks;
 std::vector<GameObject*> targets;
-Audio sound;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 CollisionManager collisionManager;
@@ -23,8 +22,6 @@ Game::Game()
 {}
 Game::~Game()
 {}
-
-bool jumpSound = false;
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -108,30 +105,26 @@ void Game::getInputs()
 	if (keystate[SDL_SCANCODE_W])
 	{
 		player->Jump();
-		sound.load("assets/jump.wav");
-		if (!jumpSound)
-		{
-			sound.load("assets/jump.wav");
-			sound.play();
-			jumpSound = true;
-		}
-	}
-	else
-	{
-		jumpSound = false;
 	}
 
-	if (keystate[SDL_SCANCODE_K])
-	{
-		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
-		if (player->isFacingRight) {
-			attack->SetSpeed(10, 0);
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym) {
+			case SDLK_k:
+				GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
+				if (player->isFacingRight) {
+					attack->SetSpeed(10, 0);
+				}
+				else {
+					attack->SetSpeed(-10, 0);
+				}
+				attacks.push_back(attack);
+				break;
+			}
+			break;
 		}
-		else {
-			attack->SetSpeed(-10, 0);
-		}
-		
-		attacks.push_back(attack);
 	}
 }
 void Game::update()

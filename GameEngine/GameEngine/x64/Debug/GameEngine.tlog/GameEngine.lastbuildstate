@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.39.33519:TargetPlatformVersion=10.0.22000.0:
 Debug|x64|C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\|
-=======
-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.36.32532:TargetPlatformVersion=10.0.22000.0:
-Debug|x64|C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\|
->>>>>>> 959de64b26f6c32ca8fe878212d6bf9415a1a35b

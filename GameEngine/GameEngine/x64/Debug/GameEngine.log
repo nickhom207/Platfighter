@@ -1,22 +1,2 @@
-<<<<<<< HEAD
-﻿  Audio.cpp
-C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Audio.hpp(4,10): error C1083: Cannot open include file: 'SDL_mixer.h': No such file or directory
-  (compiling source file 'Src/Audio.cpp')
-  
-  CollisionManager.cpp
-  Game.cpp
-C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Audio.hpp(4,10): error C1083: Cannot open include file: 'SDL_mixer.h': No such file or directory
-  (compiling source file 'Src/Game.cpp')
-  
-  GameObject.cpp
-  main.cpp
-  map.cpp
-  PlayerObject.cpp
-  TextureManager.cpp
-  Generating Code...
-=======
 ﻿  Game.cpp
-  PlayerObject.cpp
-  Generating Code...
-  GameEngine.vcxproj -> C:\Users\jacky\OneDrive\桌面\programming\github\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
->>>>>>> 959de64b26f6c32ca8fe878212d6bf9415a1a35b
+  GameEngine.vcxproj -> C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
