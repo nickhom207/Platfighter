@@ -30,7 +30,6 @@ bool CollisionManager::CheckCollision( SDL_Point p1, SDL_Point q1, SDL_Point p2,
     topB = p2.y;
     bottomB = q2.y;
 
-
     /*
     if (a_speed.x > 0) {
         rightA = rightA + a_speed.x;
@@ -39,13 +38,14 @@ bool CollisionManager::CheckCollision( SDL_Point p1, SDL_Point q1, SDL_Point p2,
         leftA = leftA - a_speed.x;
     }
 
-if (a_speed.y > 0) {
-    topA = topA + a_speed.y;
-}
-else {
-    bottomA = bottomA - a_speed.y;
-}
-*/
+    if (a_speed.y > 0) {
+        topA = topA + a_speed.y;
+    }
+    else {
+        bottomA = bottomA - a_speed.y;
+    }
+    */
+
 
     // Nick's attempt
     if (leftA < rightB && rightA > leftB ) {

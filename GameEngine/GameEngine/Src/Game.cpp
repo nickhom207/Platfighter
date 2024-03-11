@@ -1,3 +1,4 @@
+#include <vector> 
 #include "Game.hpp"
 #include "TextureManager.hpp"
 #include "GameObject.hpp"
@@ -11,6 +12,8 @@ GameObject* lowerBound;
 GameObject* leftBound;
 GameObject* rightBound;
 GameObject* stage;
+std::vector<GameObject*> attacks;
+std::vector<GameObject*> targets;
 Audio sound;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
@@ -62,7 +65,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
 	rightBound = new GameObject("assets/red_square.png", 1400, 360, 900, 4);
 	stage = new GameObject("assets/main_platform.png", 192, 576, 64, 896);
+	GameObject* target = new GameObject("assets/blue_square.png", 192, 500, 32, 32);
+	targets.push_back(target);
 	map = new Map();
+	
 }
 
 void Game::handleEvents()
@@ -114,13 +120,36 @@ void Game::getInputs()
 	{
 		jumpSound = false;
 	}
-}
 
+	if (keystate[SDL_SCANCODE_K])
+	{
+		GameObject* attack = new GameObject("assets/blue_square.png", player->GetXPos(), player->GetYPos(), 18, 18);
+		if (player->isFacingRight) {
+			attack->SetSpeed(10, 0);
+		}
+		else {
+			attack->SetSpeed(-10, 0);
+		}
+		
+		attacks.push_back(attack);
+	}
+}
 void Game::update()
 {
 	player->Update();
 	lowerBound->Update();
 	stage->Update();
+	if (attacks.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			attacks[i]->Update();
+		}
+	}
+	
+	if (targets.size() != 0) {
+		for (int i = 0; i < targets.size(); i++) {
+			targets[i]->Update();
+		}
+	}
 	//stage collision
 	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
@@ -133,6 +162,18 @@ void Game::update()
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint(), player->GetSpeed(), (1.0f / 60.0f))) {
 		player->respawn();
 	}
+	
+	if (attacks.size() != 0 && targets.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			for (int j = 0; j < targets.size(); j++) {
+				if (collisionManager.CheckCollision(attacks[i]->GetCollisionTopLeftPoint(), attacks[i]->GetCollisionBottomRightPoint(), targets[j]->GetCollisionTopLeftPoint(), targets[j]->GetCollisionBottomRightPoint(), attacks[i]->GetSpeed(), (1.0f / 60.0f))) {
+					std::cout << "Shooted target" << std::endl;
+				}
+			}
+		}
+	}
+
+
 }
 
 void Game::render()
@@ -142,6 +183,18 @@ void Game::render()
 	lowerBound->Render();
 	stage->Render();
 	player->Render();
+	if (attacks.size() != 0) {
+		for (int i = 0; i < attacks.size(); i++) {
+			attacks[i]->Render();
+		}
+	}
+	
+	if (targets.size() != 0) {
+		for (int i = 0; i < targets.size(); i++) {
+			targets[i]->Render();
+		}
+	}
+
 	SDL_RenderPresent(renderer);
 }
 

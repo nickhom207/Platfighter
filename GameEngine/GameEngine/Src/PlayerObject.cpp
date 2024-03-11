@@ -58,11 +58,13 @@ void PlayerObject::MoveHorizontal(int command) {
 	switch (command) {
 		/*left*/
 	case 0:
+		isFacingRight = false;
 		if (xspeed > xmaxspeed * -1)
 			xspeed -= xacceleration;
 		break;
 		/*right*/
 	case 1:
+		isFacingRight = true;
 		if (xspeed < xmaxspeed)
 			xspeed += xacceleration;
 		break;
@@ -81,6 +83,7 @@ void PlayerObject::Jump() {
 		hasJump = false;
 	}
 }
+
 
 void PlayerObject::setY(int y) {
 	ypos = y;
@@ -111,4 +114,11 @@ SDL_Point PlayerObject::GetCollisionBottomRightPoint() {
 
 SDL_Point PlayerObject::GetSpeed() {
 	return SDL_Point{ xspeed, yspeed };
+}
+
+int PlayerObject::GetXPos() {
+	return xpos;
+}
+int PlayerObject::GetYPos() {
+	return ypos;
 }

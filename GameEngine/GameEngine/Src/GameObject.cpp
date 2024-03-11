@@ -8,6 +8,8 @@ GameObject::GameObject(const char* texturesheet, int x, int y, int h, int w)
 	xpos = x;
 	ypos = y;
 	ystart = y;
+	xspeed = 0;
+	yspeed = 0;
 
 	//Collision:
 	height = h;
@@ -28,6 +30,12 @@ void GameObject::Update()
 	destRect.w = srcRect.w;
 	destRect.h = srcRect.h;
 
+	xpos += xspeed;
+	ypos += yspeed;
+
+	topLeftPoint = SDL_Point{ xpos, ypos };
+	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
+
 	/*
 	//Collision
 	topLeftPoint = SDL_Point{ xpos, ypos };
@@ -45,4 +53,13 @@ SDL_Point GameObject::GetCollisionTopLeftPoint() {
 
 SDL_Point GameObject::GetCollisionBottomRightPoint() {
 	return bottomRightPoint;
+}
+
+void GameObject::SetSpeed(int x, int y) {
+	xspeed = x;
+	yspeed = y;
+
+}
+SDL_Point GameObject::GetSpeed() {
+	return SDL_Point{ xspeed, yspeed };
 }
