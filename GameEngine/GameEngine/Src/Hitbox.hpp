@@ -13,6 +13,7 @@ public:
 	void Deactivate();
 
 	int getXknockback();
+	int getReverseXknockback();
 	int getYknockback();
 	bool isActive();
 
