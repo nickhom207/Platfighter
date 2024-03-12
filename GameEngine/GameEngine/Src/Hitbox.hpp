@@ -5,7 +5,7 @@
 class Hitbox {
 
 public:
-	Hitbox(PlayerObject* character, int x, int y, int h, int w, int power, int kb, double a);
+	Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a);
 	~Hitbox();
 
 	void Update();
@@ -15,6 +15,7 @@ public:
 	int getXknockback();
 	int getReverseXknockback();
 	int getYknockback();
+	double getDamage();
 	bool isActive();
 
 	SDL_Point GetCollisionTopLeftPoint();
@@ -23,7 +24,8 @@ public:
 private:
 	PlayerObject* player;
 	double angle;
-	int xoffset, yoffset, xpos, ypos, height, width, damage, knockback;
+	int xoffset, yoffset, xpos, ypos, height, width, knockback;
+	double damage;
 	bool active;
 
 	SDL_Point topLeftPoint;

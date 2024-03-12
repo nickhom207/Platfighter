@@ -16,6 +16,7 @@ public:
 	void setYspeed(int y);
 	void setXspeed(int x);
 	void knockBack(int x, int y);
+	void receiveDamage(double dmg);
 
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();
@@ -35,6 +36,6 @@ private:
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
 
-	int damage;
+	double damage;
 };
 

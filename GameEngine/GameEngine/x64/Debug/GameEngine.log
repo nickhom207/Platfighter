@@ -1,2 +1,4 @@
-﻿  Game.cpp
+﻿  DummyObject.cpp
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(90,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(91,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
   GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe

@@ -75,7 +75,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	int surfaceHit = sound.loadSound("Assets/surfacehit.wav");
 
 	player = new PlayerObject("assets/face.png", 400, 512);
-	melee = new Hitbox(player, 0, 0, 64, 64, 2, 10, M_PI / 2.5);
+	melee = new Hitbox(player, 0, 0, 64, 64, 0.5, 5, M_PI / 2.5);
 	dummy = new DummyObject("assets/dummy.png", 500, 512);
 	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
 	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
@@ -84,7 +84,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	GameObject* target = new GameObject("assets/blue_square.png", 192, 500, 32, 32);
 	targets.push_back(target);
 	map = new Map();
-	
 }
 
 void Game::handleEvents()
@@ -259,6 +258,7 @@ void Game::update()
 			dummy->knockBack(melee->getXknockback(), -1 * melee->getYknockback());
 		else
 			dummy->knockBack(melee->getReverseXknockback(), -1 * melee->getYknockback());
+		dummy->receiveDamage(melee->getDamage());
 	}
 	
 	if (attacks.size() != 0 && targets.size() != 0) {

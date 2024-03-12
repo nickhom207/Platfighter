@@ -17,7 +17,7 @@ DummyObject::DummyObject(const char* texturesheet, int x, int y)
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
 
-	damage = 0;
+	damage = 1;
 }
 
 void DummyObject::Update()
@@ -45,7 +45,11 @@ void DummyObject::Update()
 
 void DummyObject::Render()
 {
-	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
+	if(damage <= 20)
+		SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
+	else
+		SDL_RenderCopyEx(Game::renderer, objTexture, &srcRect, &destRect, NULL, NULL, SDL_FLIP_VERTICAL);
+		
 }
 
 SDL_Point DummyObject::GetCollisionTopLeftPoint() {
@@ -83,6 +87,10 @@ void DummyObject::setXspeed(int x) {
 }
 
 void DummyObject::knockBack(int x, int y) {
-	xspeed += x;
-	yspeed += y;
+	xspeed += x * damage;
+	yspeed += y * damage;
+}
+
+void DummyObject::receiveDamage(double dmg) {
+	damage += dmg;
 }

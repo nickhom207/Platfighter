@@ -1,7 +1,7 @@
 #include "Hitbox.hpp"
 #include <cmath>
 
-Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, int power, int kb, double a) {
+Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a) {
 	player = character;
 	xoffset = x;
 	yoffset = y;
@@ -9,7 +9,7 @@ Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, int power, i
 	ypos = player->GetYPos() + yoffset;
 	height = h;
 	width = w;
-	damage = power;
+	damage = d;
 	knockback = kb;
 	angle = a;
 	active = false;
@@ -41,6 +41,10 @@ int Hitbox::getReverseXknockback() {
 
 int Hitbox::getYknockback() {
 	return sin(angle) * knockback;
+}
+
+double Hitbox::getDamage() {
+	return damage;
 }
 
 bool Hitbox::isActive() {
