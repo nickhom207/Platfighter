@@ -19,6 +19,8 @@ public:
 
 	int GetXPos();
 	int GetYPos();
+	int GetH();
+	int GetW();
 
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();

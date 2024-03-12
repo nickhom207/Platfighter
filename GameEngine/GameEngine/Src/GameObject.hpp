@@ -9,8 +9,6 @@ public:
 
 	void Update();
 	void Render();
-	void MoveHorizontal(int command);
-	void Jump();
 	void SetSpeed(int x, int y);
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();

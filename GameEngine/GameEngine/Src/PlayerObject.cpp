@@ -122,3 +122,11 @@ int PlayerObject::GetXPos() {
 int PlayerObject::GetYPos() {
 	return ypos;
 }
+
+int PlayerObject::GetH() {
+	return height;
+}
+int PlayerObject::GetW() {
+	return width;
+}
+
