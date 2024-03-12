@@ -9,13 +9,15 @@ public:
 
 	void Update();
 	void Render();
+
 	void MoveHorizontal(int command);
 	void Jump();
+	void DoubleJump();
 
 	void setY(int y);
 	void respawn();
 	void setYspeed(int y);
-	void giveJump();
+	void ground();
 
 	int GetXPos();
 	int GetYPos();
@@ -28,6 +30,9 @@ public:
 
 	bool shootingCooldown;
 	bool isFacingRight;
+	bool isGrounded;
+	bool hasJump;
+	bool hasDblJump;
 
 private:
 	int xpos;
@@ -43,7 +48,6 @@ private:
 	int ydecceleration;
 	int jumpforce;
 	int fallspeed;
-	bool hasJump;
 
 	int width;
 	int height;

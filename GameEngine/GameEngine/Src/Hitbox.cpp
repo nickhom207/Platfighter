@@ -18,20 +18,14 @@ Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, int power, i
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
 }
 
-void Hitbox::Update() {
-	xpos = player->GetXPos() + xoffset;
-	ypos = player->GetYPos() + yoffset;
-
-	topLeftPoint = SDL_Point{ xpos, ypos };
-	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
-}
-
 void Hitbox::Activate() {
 	xpos = player->GetXPos() + xoffset;
 	ypos = player->GetYPos() + yoffset;
 
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
+
+	active = false;
 }
 
 void Hitbox::Deactivate() {
@@ -44,6 +38,10 @@ int Hitbox::getXknockback() {
 
 int Hitbox::getYknockback() {
 	return sin(angle) * knockback;
+}
+
+bool Hitbox::isActive() {
+	return active;
 }
 
 SDL_Point Hitbox::GetCollisionTopLeftPoint() {

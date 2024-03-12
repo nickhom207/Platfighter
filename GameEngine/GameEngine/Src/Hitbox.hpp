@@ -14,6 +14,7 @@ public:
 
 	int getXknockback();
 	int getYknockback();
+	bool isActive();
 
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();

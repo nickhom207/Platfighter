@@ -75,8 +75,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	int surfaceHit = sound.loadSound("Assets/surfacehit.wav");
 
 	player = new PlayerObject("assets/face.png", 400, 512);
-	left = new Hitbox(player, 0, 0, 64, 32, 2, 10, M_PI / 2.5 * -1);
-	right = new Hitbox(player, 33, 0, 64, 32, 2, 10, M_PI / 2.5);
+	left = new Hitbox(player, 0, 0, 64, 64, 2, 10, M_PI / 2.5 * -1);
+	right = new Hitbox(player, 0, 0, 64, 64, 2, 10, M_PI / 2.5);
 	dummy = new DummyObject("assets/dummy.png", 192, 500);
 	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
 	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
@@ -102,7 +102,7 @@ void Game::handleEvents()
 }
 
 bool isShooting = false;
-bool isGrounded = true;
+bool isSingleJumping = false;
 
 void Game::getInputs()
 {
@@ -142,24 +142,37 @@ void Game::getInputs()
 		player->MoveHorizontal(2);
 	}
 
-	//single activiation input
-	if (keysPressed[SDL_SCANCODE_W] and isGrounded) {
+	//single activation input for jump
+	if (keysPressed[SDL_SCANCODE_W] and player->isGrounded) {
 		player->Jump();
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(jump, pan);
+		isSingleJumping = true;
+	}
+	//double jump
+	else if (keysPressed[SDL_SCANCODE_W] and !player->isGrounded and player->hasDblJump and !isSingleJumping) {
+		player->DoubleJump();
+		int pan = ((player->GetXPos() - 640) * 100) / 640;
+		sound.playSound(jump, pan);
+	}
+	if (!keysPressed[SDL_SCANCODE_W]) {
+		isSingleJumping = false;
 	}
 
-	if (keysPressed[SDL_SCANCODE_SPACE] and !isShooting) {
+	std::cout << isSingleJumping << std::endl;
+
+	//melee attack
+	if (keysPressed[SDL_SCANCODE_SPACE] and !isShooting and !left->isActive()) {
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(1, pan);
-		left->Activate();
-		right->Activate();
+		if(player->isFacingRight)
+			right->Activate();
+		else
+			left->Activate();
 		isShooting = true;
 	}
 	if (!keysPressed[SDL_SCANCODE_SPACE]) {
 		isShooting = false;
-		left->Deactivate();
-		right->Deactivate();
 	}
 
 	/*
@@ -185,8 +198,6 @@ void Game::getInputs()
 void Game::update()
 {
 	player->Update();
-	//left->Update();
-	//right->Update();
 	dummy->Update();
 	stage->Update();
 	if (attacks.size() != 0) {
@@ -204,15 +215,15 @@ void Game::update()
 	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint())) {
 		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
 		player->setYspeed(0);
-		player->giveJump();
-		if (!isGrounded) {
-			int pan = ((player->GetXPos() - 640) * 100) / 640;
-			sound.playSound(3, pan);
-			isGrounded = true;
-		}
+		player->ground();
+		//if (player->isGrounded) {
+		//	int pan = ((player->GetXPos() - 640) * 100) / 640;
+		//	sound.playSound(3, pan);
+		//	player->ground();
+		//}
 	}
 	if (!collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint())) {
-		isGrounded = false;
+		//isGrounded = false;
 	}
 
 	//dummy-stage collision
@@ -227,7 +238,6 @@ void Game::update()
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), leftBound->GetCollisionTopLeftPoint(), leftBound->GetCollisionBottomRightPoint())
 		or collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), rightBound->GetCollisionTopLeftPoint(), rightBound->GetCollisionBottomRightPoint())) {
 		player->respawn();
-		isGrounded = false;
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(2, pan);
 	}
