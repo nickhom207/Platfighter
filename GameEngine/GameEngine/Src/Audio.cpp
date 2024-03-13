@@ -34,7 +34,7 @@ int Audio::loadMusic(const char* filename) {
     return music.size() - 1;
 }
 
-int Audio::playSound(int s, int pan) {
+int Audio::playSound(int s, int pan, int volume) {
     int channel = Mix_PlayChannel(-1, sounds[s], 0);
     if (channel != -1) {
         Mix_Volume(channel, volume);
@@ -53,11 +53,6 @@ int Audio::playMusic(int m) {
 
 void Audio::stop() {
     SDL_PauseAudioDevice(deviceId, 1);
-}
-
-int volume;
-void Audio::setVolume(int v) {
-    volume = (MIX_MAX_VOLUME * v) / 100;
 }
 
 void Audio::setPan(int channel, int pan) {
@@ -92,7 +87,6 @@ int Audio::INIT_Mixer() {
         return -1;
     }
 
-    setVolume(50);
     return 0;
 }
 

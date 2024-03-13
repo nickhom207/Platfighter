@@ -12,7 +12,7 @@
 #include "CollisionManager.hpp"
 
 PlayerObject* player;
-GameObject *lowerBound, *leftBound, *rightBound, *stage;
+GameObject *lowerBound, *leftBound, *rightBound, *stage, *platform1;
 DummyObject* dummy;
 Hitbox* left, * right;
 std::vector<GameObject*> attacks;
@@ -79,9 +79,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	right = new Hitbox(player, 33, 0, 64, 32, 2, 10, M_PI / 2.5);
 	dummy = new DummyObject("assets/dummy.png", 192, 500);
 	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
-	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
-	rightBound = new GameObject("assets/red_square.png", 1400, 360, 900, 4);
+	leftBound = new GameObject("assets/red_square.png", -100, 360, 950, 4);
+	rightBound = new GameObject("assets/red_square.png", 1400, 360, 950, 4);
 	stage = new GameObject("assets/main_platform.png", 192, 576, 64, 896);
+	platform1 = new GameObject("assets/main_platform.png", 300, 400, 20, 200);
 	GameObject* target = new GameObject("assets/blue_square.png", 192, 500, 32, 32);
 	targets.push_back(target);
 	map = new Map();
@@ -102,7 +103,11 @@ void Game::handleEvents()
 }
 
 bool isShooting = false;
+bool isJumping = false;
 bool isGrounded = true;
+bool isThroughPlatform = false;
+bool isFallingOffPlatform = false;
+bool ignorePlatform = true;
 
 void Game::getInputs()
 {
@@ -143,23 +148,32 @@ void Game::getInputs()
 	}
 
 	//single activiation input
-	if (keysPressed[SDL_SCANCODE_W] and isGrounded) {
+	if (keysPressed[SDL_SCANCODE_W] and isGrounded and !isJumping) {
 		player->Jump();
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(jump, pan);
+		sound.playSound(jump, pan, 50);
+		isJumping = true;
+	}
+	if (!keysPressed[SDL_SCANCODE_W] and isJumping) {
+		isJumping = false;
 	}
 
 	if (keysPressed[SDL_SCANCODE_SPACE] and !isShooting) {
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(1, pan);
+		sound.playSound(1, pan, 50);
 		left->Activate();
 		right->Activate();
 		isShooting = true;
 	}
-	if (!keysPressed[SDL_SCANCODE_SPACE]) {
+	if (!keysPressed[SDL_SCANCODE_SPACE] and isShooting) {
 		isShooting = false;
-		left->Deactivate();
-		right->Deactivate();
+	}
+	if (keysPressed[SDL_SCANCODE_S] and !isFallingOffPlatform) {
+		isFallingOffPlatform = true;
+		ignorePlatform = false;
+	}
+	if (!keysPressed[SDL_SCANCODE_S] and isFallingOffPlatform) {
+		isFallingOffPlatform = false;
 	}
 
 	/*
@@ -187,8 +201,10 @@ void Game::update()
 	player->Update();
 	//left->Update();
 	//right->Update();
+	std::cout << player->GetSpeed().y << std::endl;
 	dummy->Update();
 	stage->Update();
+	platform1->Update();
 	if (attacks.size() != 0) {
 		for (int i = 0; i < attacks.size(); i++) {
 			attacks[i]->Update();
@@ -200,19 +216,46 @@ void Game::update()
 			targets[i]->Update();
 		}
 	}
+
+	bool checkPlatformCollision = collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), platform1->GetCollisionTopLeftPoint(), platform1->GetCollisionBottomRightPoint());
+	bool checkStageCollision = collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint());
+
 	//player-stage collision
-	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint())) {
+	if (checkStageCollision) {
 		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
+		int tempSpeed = abs(player->GetSpeed().y);
 		player->setYspeed(0);
 		player->giveJump();
 		if (!isGrounded) {
 			int pan = ((player->GetXPos() - 640) * 100) / 640;
-			sound.playSound(3, pan);
+			sound.playSound(3, pan, tempSpeed*1.5);
 			isGrounded = true;
+			ignorePlatform = true;
+			//std::cout << isGrounded << std::endl;
 		}
 	}
-	if (!collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint())) {
+
+	if (!checkStageCollision and !checkPlatformCollision) {
 		isGrounded = false;
+	}
+
+	//player-platform collision
+	if (checkPlatformCollision) {
+		if (player->GetSpeed().y > 0) {
+			if (checkPlatformCollision and (player->GetYPos() < platform1->GetCollisionTopLeftPoint().y) and ignorePlatform) {
+				isThroughPlatform = true;
+				player->setY(platform1->GetCollisionTopLeftPoint().y - 64);
+				int tempSpeed = abs(player->GetSpeed().y);
+				player->setYspeed(0);
+				player->giveJump();
+
+				if (!isGrounded) {
+					int pan = ((player->GetXPos() - 640) * 100) / 640;
+					sound.playSound(3, pan, tempSpeed*1.5);
+					isGrounded = true;
+				}
+			}
+		}
 	}
 
 	//dummy-stage collision
@@ -229,7 +272,7 @@ void Game::update()
 		player->respawn();
 		isGrounded = false;
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(2, pan);
+		sound.playSound(2, pan, 50);
 	}
 
 	//dummy-outer bounds collision
@@ -265,6 +308,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	stage->Render();
+	platform1->Render();
 	player->Render();
 	dummy->Render();
 	if (attacks.size() != 0) {
