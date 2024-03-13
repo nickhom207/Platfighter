@@ -1,2 +1,10 @@
 ﻿  Game.cpp
-  GameEngine.vcxproj -> C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Game.cpp(260,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Game.cpp(276,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Game.cpp(293,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Hitbox.cpp
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(52,20): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(56,32): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(60,20): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe

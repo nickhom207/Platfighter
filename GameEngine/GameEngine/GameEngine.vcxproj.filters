@@ -39,6 +39,12 @@
     <ClCompile Include="Src\PlayerObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\DummyObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Hitbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game.hpp">
@@ -63,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\PlayerObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\DummyObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Hitbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,6 +116,12 @@
     <Image Include="Assets\target.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\dummy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\dummy_hurt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="x64\Debug\Audio.obj" />
@@ -118,6 +136,18 @@
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="Assets\shoot.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\surfacehit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\respawn.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\music1.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

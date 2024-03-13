@@ -11,7 +11,7 @@ class CollisionManager {
 public:
 	CollisionManager();
 	~CollisionManager();
-	bool CheckCollision(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2, SDL_Point a_speed, float deltaTime);
+	bool CheckCollision(SDL_Point p1, SDL_Point q1, SDL_Point p2, SDL_Point q2);
 private:
 
 };

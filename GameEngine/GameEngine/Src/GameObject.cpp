@@ -35,11 +35,6 @@ void GameObject::Update()
 
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
-
-	/*
-	//Collision
-	topLeftPoint = SDL_Point{ xpos, ypos };
-	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };*/
 }
 
 void GameObject::Render()

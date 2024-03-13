@@ -1,7 +1,7 @@
 #include "PlayerObject.hpp"
 #include "TextureManager.hpp"
 
-PlayerObject::PlayerObject(const char* texturesheet, int x, int y)
+PlayerObject::PlayerObject(const char* texturesheet, int x, int y, int maxspeed, int acceleration, int deceleration, int jump, int fall)
 {
 	objTexture = TextureManager::LoadTexture(texturesheet);
 
@@ -10,20 +10,25 @@ PlayerObject::PlayerObject(const char* texturesheet, int x, int y)
 
 	xspeed = 0;
 	yspeed = 0;
-	xmaxspeed = 20;
-	ymaxspeed = 20;
-	xacceleration = 2;
-	yacceleration = 2;
-	xdecceleration = 2;
-	ydecceleration = 2;
-	jumpforce = 50;
-	fallspeed = -5;
-	hasJump = false;
+
+	xmaxspeed = maxspeed;
+	xacceleration = acceleration;
+	xdeceleration = deceleration;
+	jumpforce = jump;
+	fallspeed = fall;
+
+	hasJump = true;
+	hasDblJump = false;
+	isGrounded = true;
+	isFallingOffPlatform = true;
+	isThroughPlatform = false;
+	ignorePlatform = true;
 	
 	width = 64;
 	height = 64;
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
+	isFacingRight = true;
 }
 
 void PlayerObject::Update()
@@ -51,7 +56,10 @@ void PlayerObject::Update()
 
 void PlayerObject::Render()
 {
-	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
+	if(isFacingRight)
+		SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
+	else
+		SDL_RenderCopyEx(Game::renderer, objTexture, &srcRect, &destRect, NULL, NULL, SDL_FLIP_HORIZONTAL);
 }
 
 void PlayerObject::MoveHorizontal(int command) {
@@ -70,7 +78,7 @@ void PlayerObject::MoveHorizontal(int command) {
 		break;
 		/*stopping*/
 	case 2:
-		xspeed /= xdecceleration;
+		xspeed /= xdeceleration;
 		break;
 	default:
 		break;
@@ -81,6 +89,14 @@ void PlayerObject::Jump() {
 	if (yspeed == 0 && hasJump) {
 		yspeed = -jumpforce;
 		hasJump = false;
+		isGrounded = false;
+	}
+}
+
+void PlayerObject::DoubleJump() {
+	if (!hasJump and hasDblJump) {
+		yspeed = 0 - jumpforce;
+		hasDblJump = false;
 	}
 }
 
@@ -100,8 +116,10 @@ void PlayerObject::setYspeed(int y) {
 	yspeed = y;
 }
 
-void PlayerObject::giveJump() {
+void PlayerObject::ground() {
+	isGrounded = true;
 	hasJump = true;
+	hasDblJump = true;
 }
 
 SDL_Point PlayerObject::GetCollisionTopLeftPoint() {
@@ -122,3 +140,26 @@ int PlayerObject::GetXPos() {
 int PlayerObject::GetYPos() {
 	return ypos;
 }
+
+int PlayerObject::GetH() {
+	return height;
+}
+int PlayerObject::GetW() {
+	return width;
+}
+bool PlayerObject::GetGround() {
+	return isGrounded;
+}
+
+void PlayerObject::setFallingPlat(bool x) {
+	isFallingOffPlatform = x;
+}
+
+void PlayerObject::setIgnorePlat(bool x) {
+	ignorePlatform = x;
+}
+
+void PlayerObject::setThroughPlat(bool x) {
+	isThroughPlatform = x;
+}
+
