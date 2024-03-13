@@ -75,7 +75,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	int surfaceHit = sound.loadSound("Assets/surfacehit.wav");
 
 	player = new PlayerObject("assets/face.png", 400, 512);
-	melee = new Hitbox(player, 0, 0, 64, 64, 0.5, 5, M_PI / 2.5);
+	melee = new Hitbox(player, 0, 0, 64, 64, 0.5, 30, M_PI / 2.5, 1);
 	dummy = new DummyObject("assets/dummy.png", 500, 512);
 	lowerBound = new GameObject("assets/red_square.png", -500, 1300, 32, 2500);
 	leftBound = new GameObject("assets/red_square.png", -100, -200, 1500, 32);
@@ -178,7 +178,7 @@ void Game::getInputs()
 	if (keysPressed[SDL_SCANCODE_SPACE] and !isShooting) {
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
 		sound.playSound(1, pan, 50);
-		melee->Activate();
+		melee->Trigger();
 		isShooting = true;
 	}
 	if (!keysPressed[SDL_SCANCODE_SPACE]) {
@@ -215,7 +215,7 @@ void Game::getInputs()
 void Game::update()
 {
 	player->Update();
-	lowerBound->Update();
+	melee->Update();
 	dummy->Update();
 	stage->Update();
 	platform1->Update();
@@ -317,14 +317,11 @@ void Game::update()
 
 	//hitbox-dummy collision
 	if (melee->isActive() and collisionManager.CheckCollision(dummy->GetCollisionTopLeftPoint(), dummy->GetCollisionBottomRightPoint(), melee->GetCollisionTopLeftPoint(), melee->GetCollisionBottomRightPoint())) {
-		std::cout << "hit!" << std::endl;
 		if (player->isFacingRight)
 			dummy->knockBack(melee->getXknockback(), -1 * melee->getYknockback());
 		else
 			dummy->knockBack(melee->getReverseXknockback(), -1 * melee->getYknockback());
 		dummy->receiveDamage(melee->getDamage());
-
-		std::cout << "Hit!" << std::endl;
 	}
 	
 	if (attacks.size() != 0 && targets.size() != 0) {

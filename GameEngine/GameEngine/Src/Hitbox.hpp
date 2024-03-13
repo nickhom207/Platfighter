@@ -5,10 +5,11 @@
 class Hitbox {
 
 public:
-	Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a);
+	Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a, int frames);
 	~Hitbox();
 
 	void Update();
+	void Trigger();
 	void Activate();
 	void Deactivate();
 
@@ -23,9 +24,8 @@ public:
 
 private:
 	PlayerObject* player;
-	double angle;
-	int xoffset, yoffset, xpos, ypos, height, width, knockback;
-	double damage;
+	double angle, damage;
+	int xoffset, yoffset, xpos, ypos, height, width, knockback, frames, counter;
 	bool active;
 
 	SDL_Point topLeftPoint;

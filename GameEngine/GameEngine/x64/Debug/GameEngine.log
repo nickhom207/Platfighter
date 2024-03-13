@@ -1,5 +1,4 @@
-﻿  Game.cpp
-C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(253,37): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(269,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\GameEngine\Src\Game.cpp(286,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  GameEngine.vcxproj -> C:\Users\kiwwi\dev\CS438\Platfighter\GameEngine\x64\Debug\GameEngine.exe
+﻿  DummyObject.cpp
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(87,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(88,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe

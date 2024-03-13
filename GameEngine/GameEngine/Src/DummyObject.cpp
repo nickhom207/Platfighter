@@ -22,9 +22,6 @@ DummyObject::DummyObject(const char* texturesheet, int x, int y)
 
 void DummyObject::Update()
 {
-	/*std::cout << xspeed << std::endl;*/
-	/*std::cout << yspeed << std::endl;*/
-
 	srcRect.h = 64;
 	srcRect.w = 64;
 	srcRect.x = 0;
@@ -45,7 +42,7 @@ void DummyObject::Update()
 
 void DummyObject::Render()
 {
-	if(damage <= 20)
+	if(damage < 2.5)
 		SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
 	else
 		SDL_RenderCopyEx(Game::renderer, objTexture, &srcRect, &destRect, NULL, NULL, SDL_FLIP_VERTICAL);
@@ -75,7 +72,7 @@ void DummyObject::respawn() {
 	ypos = 0;
 	yspeed = 1;
 	xspeed = 0;
-	damage = 0;
+	damage = 1;
 }
 
 void DummyObject::setYspeed(int y) {

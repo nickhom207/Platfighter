@@ -1,7 +1,7 @@
 #include "Hitbox.hpp"
 #include <cmath>
 
-Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a) {
+Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a, int duration) {
 	player = character;
 	xoffset = x;
 	yoffset = y;
@@ -12,23 +12,40 @@ Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, in
 	damage = d;
 	knockback = kb;
 	angle = a;
+	frames = duration;
 	active = false;
+	//arbitrarily high number
+	counter = 100;
 
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
 }
 
-void Hitbox::Activate() {
-	active = true;
+void Hitbox::Update() {
+	if (counter < frames)
+		counter++;
+	else
+		active = false;
+}
+
+void Hitbox::Trigger() {
+ 	active = true;
+
 	xpos = player->GetXPos() + xoffset;
 	ypos = player->GetYPos() + yoffset;
 
 	topLeftPoint = SDL_Point{ xpos, ypos };
 	bottomRightPoint = SDL_Point{ xpos + width, ypos + height };
+
+	counter = 0;
 }
 
 void Hitbox::Deactivate() {
 	active = false;
+}
+
+void Hitbox::Activate() {
+	active = true;
 }
 
 int Hitbox::getXknockback() {
