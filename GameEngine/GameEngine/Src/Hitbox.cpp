@@ -1,7 +1,7 @@
 #include "Hitbox.hpp"
 #include <cmath>
 
-Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a, int duration) {
+Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double dmg, int kb, double a, int duration) {
 	player = character;
 	xoffset = x;
 	yoffset = y;
@@ -9,7 +9,7 @@ Hitbox::Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, in
 	ypos = player->GetYPos() + yoffset;
 	height = h;
 	width = w;
-	damage = d;
+	damage = dmg;
 	knockback = kb;
 	angle = a;
 	frames = duration;

@@ -4,7 +4,7 @@
 class PlayerObject {
 
 public:
-	PlayerObject(const char* texturesheet, int x, int y);
+	PlayerObject(const char* texturesheet, int x, int y, int maxspeed, int acceleration, int deceleration, int jump, int fall);
 	~PlayerObject();
 
 	void Update();
@@ -49,11 +49,8 @@ private:
 	int xspeed;
 	int yspeed;
 	int xmaxspeed;
-	int ymaxspeed;
 	int xacceleration;
-	int yacceleration;
-	int xdecceleration;
-	int ydecceleration;
+	int xdeceleration;
 	int jumpforce;
 	int fallspeed;
 

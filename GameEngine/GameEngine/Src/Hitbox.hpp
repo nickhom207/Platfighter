@@ -5,7 +5,7 @@
 class Hitbox {
 
 public:
-	Hitbox(PlayerObject* character, int x, int y, int h, int w, double d, int kb, double a, int frames);
+	Hitbox(PlayerObject* character, int x, int y, int h, int w, double dmg, int kb, double a, int frames);
 	~Hitbox();
 
 	void Update();

@@ -63,6 +63,10 @@ void DummyObject::SetSpeed(int x, int y) {
 
 }
 
+int DummyObject::getXpos() {
+	return xpos;
+}
+
 void DummyObject::setY(int y) {
 	ypos = y;
 }

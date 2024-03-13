@@ -43,7 +43,7 @@ int Audio::playSound(int s, int pan, int volume) {
 
 int Audio::playMusic(int m, int volume) {
     if (Mix_PlayingMusic() == 0) {
-        Mix_Volume(1, volume);
+        Mix_VolumeMusic(volume);
         Mix_PlayMusic(music[m], -1);
     }
     return 0;

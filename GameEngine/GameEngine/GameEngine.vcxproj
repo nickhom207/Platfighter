@@ -195,7 +195,9 @@
     <Text Include="x64\Debug\GameEngine.log" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Assets\hit.wav" />
     <Media Include="Assets\jump.wav" />
+    <Media Include="Assets\music1.wav" />
     <Media Include="Assets\respawn.wav" />
     <Media Include="Assets\shoot.wav" />
     <Media Include="Assets\surfacehit.wav" />

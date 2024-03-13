@@ -17,6 +17,7 @@ public:
 	void setXspeed(int x);
 	void knockBack(int x, int y);
 	void receiveDamage(double dmg);
+	int getXpos();
 
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();

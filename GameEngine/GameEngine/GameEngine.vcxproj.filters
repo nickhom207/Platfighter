@@ -144,5 +144,11 @@
     <Media Include="Assets\respawn.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="Assets\hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\music1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
