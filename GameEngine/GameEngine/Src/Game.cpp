@@ -12,7 +12,7 @@
 #include "CollisionManager.hpp"
 
 PlayerObject* player;
-GameObject *lowerBound, *leftBound, *rightBound, *stage, *platform;
+GameObject *lowerBound, *leftBound, *rightBound, *stage, *platform1, *platform2;
 DummyObject* dummy;
 Hitbox* melee;
 std::vector<GameObject*> attacks;
@@ -77,10 +77,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player = new PlayerObject("assets/face.png", 400, 512);
 	melee = new Hitbox(player, 0, 0, 64, 64, 0.5, 5, M_PI / 2.5);
 	dummy = new DummyObject("assets/dummy.png", 500, 512);
-	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
-	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
-	rightBound = new GameObject("assets/red_square.png", 1400, 360, 900, 4);
+	lowerBound = new GameObject("assets/red_square.png", -10, 1000, 4, 2000);
+	leftBound = new GameObject("assets/red_square.png", -100, -360, 1900, 4);
+	rightBound = new GameObject("assets/red_square.png", 1400, -360, 1900, 4);
 	stage = new GameObject("assets/main_platform.png", 192, 576, 8, 896);
+	platform1 = new GameObject("assets/main_platform.png", 300, 400, 8, 200);
+	platform2 = new GameObject("assets/main_platform.png", 780, 400, 8, 200);
 	GameObject* target = new GameObject("assets/blue_square.png", 192, 500, 32, 32);
 	targets.push_back(target);
 	map = new Map();
@@ -101,6 +103,7 @@ void Game::handleEvents()
 
 bool isShooting = false;
 bool isSingleJumping = false;
+bool isJumpKey = false;
 
 void Game::getInputs()
 {
@@ -141,17 +144,31 @@ void Game::getInputs()
 	}
 
 	//single activation input for jump
-	if (keysPressed[SDL_SCANCODE_W] and player->isGrounded) {
+	if (keysPressed[SDL_SCANCODE_W] and player->isGrounded and !isJumpKey) {
 		player->Jump();
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(jump, pan);
+		sound.playSound(jump, pan, 50);
 		isSingleJumping = true;
+		isJumpKey = true;
 	}
+	if (!keysPressed[SDL_SCANCODE_W] and player->isGrounded and isJumpKey) {
+		isJumpKey = false;
+	}
+
+	//single activation input for falling (platform)
+	if (keysPressed[SDL_SCANCODE_S] and !player->isFallingOffPlatform) {
+		player->setFallingPlat(true);
+		player->setIgnorePlat(false);
+	}
+	if (!keysPressed[SDL_SCANCODE_S] and player->isFallingOffPlatform) {
+		player->setFallingPlat(false);
+	}
+
 	//double jump
 	if (keysPressed[SDL_SCANCODE_W] and !player->isGrounded and player->hasDblJump and !isSingleJumping) {
 		player->DoubleJump();
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(jump, pan);
+		sound.playSound(jump, pan, 50);
 	}
 	if (!keysPressed[SDL_SCANCODE_W]) {
 		isSingleJumping = false;
@@ -160,7 +177,7 @@ void Game::getInputs()
 	//melee attack
 	if (keysPressed[SDL_SCANCODE_SPACE] and !isShooting) {
 		int pan = ((player->GetXPos() - 640) * 100) / 640;
-		sound.playSound(1, pan);
+		sound.playSound(1, pan, 50);
 		melee->Activate();
 		isShooting = true;
 	}
@@ -200,7 +217,9 @@ void Game::update()
 	player->Update();
 	dummy->Update();
 	stage->Update();
-
+	platform1->Update();
+	platform2->Update();
+	
 	if (attacks.size() != 0) {
 		for (int i = 0; i < attacks.size(); i++) {
 			attacks[i]->Update();
@@ -212,20 +231,63 @@ void Game::update()
 			targets[i]->Update();
 		}
 	}
-	//player-stage collision
-	if (collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint())) {
-		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
-		player->setYspeed(0);
-		player->ground();
-		//if (player->isGrounded) {
-		//	int pan = ((player->GetXPos() - 640) * 100) / 640;
-		//	sound.playSound(3, pan);
-		//	player->ground();
-		//}
-	}
-	else {
+
+	//collision check variables
+	bool checkStageColl = collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), stage->GetCollisionTopLeftPoint(), stage->GetCollisionBottomRightPoint());
+	bool checkPlatform1Coll = collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), platform1->GetCollisionTopLeftPoint(), platform1->GetCollisionBottomRightPoint());
+	bool checkPlatform2Coll = collisionManager.CheckCollision(player->GetCollisionTopLeftPoint(), player->GetCollisionBottomRightPoint(), platform2->GetCollisionTopLeftPoint(), platform2->GetCollisionBottomRightPoint());
+
+	if (!checkStageColl and !checkPlatform1Coll and !checkPlatform2Coll) {
 		player->isGrounded = false;
 		player->hasJump = false;
+	}
+
+	//player-stage collision
+	if (checkStageColl) {
+		player->setY(stage->GetCollisionTopLeftPoint().y - 64);
+		int tempSpeed = abs(player->GetSpeed().y);
+		player->setYspeed(0);
+		player->setIgnorePlat(true);
+		if (!player->GetGround()) {
+			int pan = ((player->GetXPos() - 640) * 100) / 640;
+			sound.playSound(3, pan, tempSpeed*1.7);
+			player->ground();
+		}
+	}
+
+	//player-platform collision
+	//platform1
+	if (checkPlatform1Coll) {
+		if (player->GetSpeed().y > 0) {
+			if(player->GetYPos() < platform1->GetCollisionTopLeftPoint().y and player->ignorePlatform) {
+				player->setThroughPlat(true);
+				player->setY(platform1->GetCollisionTopLeftPoint().y - 64);
+				int tempSpeed = abs(player->GetSpeed().y);
+				player->setYspeed(0);
+				if (!player->GetGround()) {
+					int pan = ((player->GetXPos() - 640) * 100) / 640;
+					sound.playSound(3, pan, tempSpeed * 1.7);
+					player->ground();
+				}
+			}
+		}
+	}
+
+	//platform2
+	if (checkPlatform2Coll) {
+		if (player->GetSpeed().y > 0) {
+			if (player->GetYPos() < platform2->GetCollisionTopLeftPoint().y and player->ignorePlatform) {
+				player->setThroughPlat(true);
+				player->setY(platform2->GetCollisionTopLeftPoint().y - 64);
+				int tempSpeed = abs(player->GetSpeed().y);
+				player->setYspeed(0);
+				if (!player->GetGround()) {
+					int pan = ((player->GetXPos() - 640) * 100) / 640;
+					sound.playSound(3, pan, tempSpeed * 1.7);
+					player->ground();
+				}
+			}
+		}
 	}
 
 	//dummy-stage collision
@@ -259,6 +321,8 @@ void Game::update()
 		else
 			dummy->knockBack(melee->getReverseXknockback(), -1 * melee->getYknockback());
 		dummy->receiveDamage(melee->getDamage());
+
+		std::cout << "Hit!" << std::endl;
 	}
 	
 	if (attacks.size() != 0 && targets.size() != 0) {
@@ -279,6 +343,8 @@ void Game::render()
 	stage->Render();
 	dummy->Render();
 	player->Render();
+	platform1->Render();
+	platform2->Render();
 	if (attacks.size() != 0) {
 		for (int i = 0; i < attacks.size(); i++) {
 			attacks[i]->Render();

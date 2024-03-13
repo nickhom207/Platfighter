@@ -7,8 +7,6 @@ std::vector<Mix_Chunk*> sounds;
 std::vector<Mix_Music*> music;
 
 Audio::~Audio() {
-    SDL_FreeWAV(wavBuffer);
-    SDL_CloseAudioDevice(deviceId);
 }
 
 int Audio::loadSound(const char* filename) {
@@ -34,7 +32,7 @@ int Audio::loadMusic(const char* filename) {
     return music.size() - 1;
 }
 
-int Audio::playSound(int s, int pan) {
+int Audio::playSound(int s, int pan, int volume) {
     int channel = Mix_PlayChannel(-1, sounds[s], 0);
     if (channel != -1) {
         Mix_Volume(channel, volume);
@@ -43,21 +41,12 @@ int Audio::playSound(int s, int pan) {
     return channel;
 }
 
-int Audio::playMusic(int m) {
+int Audio::playMusic(int m, int volume) {
     if (Mix_PlayingMusic() == 0) {
         Mix_Volume(1, volume);
         Mix_PlayMusic(music[m], -1);
     }
     return 0;
-}
-
-void Audio::stop() {
-    SDL_PauseAudioDevice(deviceId, 1);
-}
-
-int volume;
-void Audio::setVolume(int v) {
-    volume = (MIX_MAX_VOLUME * v) / 100;
 }
 
 void Audio::setPan(int channel, int pan) {
@@ -92,7 +81,6 @@ int Audio::INIT_Mixer() {
         return -1;
     }
 
-    setVolume(50);
     return 0;
 }
 

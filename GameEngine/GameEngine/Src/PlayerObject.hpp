@@ -15,14 +15,19 @@ public:
 	void DoubleJump();
 
 	void setY(int y);
-	void respawn();
+	void setIgnorePlat(bool x);
+	void setFallingPlat(bool x);
+	void setThroughPlat(bool x);
 	void setYspeed(int y);
+	
+	void respawn();
 	void ground();
 
 	int GetXPos();
 	int GetYPos();
 	int GetH();
 	int GetW();
+	bool GetGround();
 
 	SDL_Point GetCollisionTopLeftPoint();
 	SDL_Point GetCollisionBottomRightPoint();
@@ -33,6 +38,9 @@ public:
 	bool isGrounded;
 	bool hasJump;
 	bool hasDblJump;
+	bool isFallingOffPlatform;
+	bool isThroughPlatform;
+	bool ignorePlatform;
 
 private:
 	int xpos;

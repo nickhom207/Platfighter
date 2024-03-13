@@ -18,9 +18,12 @@ PlayerObject::PlayerObject(const char* texturesheet, int x, int y)
 	ydecceleration = 2;
 	jumpforce = 50;
 	fallspeed = -5;
-	hasJump = false;
+	hasJump = true;
 	hasDblJump = false;
-	isGrounded = false;
+	isGrounded = true;
+	isFallingOffPlatform = true;
+	isThroughPlatform = false;
+	ignorePlatform = true;
 	
 	width = 64;
 	height = 64;
@@ -144,5 +147,20 @@ int PlayerObject::GetH() {
 }
 int PlayerObject::GetW() {
 	return width;
+}
+bool PlayerObject::GetGround() {
+	return isGrounded;
+}
+
+void PlayerObject::setFallingPlat(bool x) {
+	isFallingOffPlatform = x;
+}
+
+void PlayerObject::setIgnorePlat(bool x) {
+	ignorePlatform = x;
+}
+
+void PlayerObject::setThroughPlat(bool x) {
+	isThroughPlatform = x;
 }
 
