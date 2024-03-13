@@ -1,4 +1,10 @@
-﻿  DummyObject.cpp
-C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(90,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\DummyObject.cpp(91,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+﻿  Game.cpp
+  Hitbox.cpp
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(35,20): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(39,32): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nick\source\repos\Platfighter\GameEngine\GameEngine\Src\Hitbox.cpp(43,20): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+x64\Debug\Audio.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
+x64\Debug\main.obj : warning LNK4042: object specified more than once; extras ignored
   GameEngine.vcxproj -> C:\Users\Nick\source\repos\Platfighter\GameEngine\x64\Debug\GameEngine.exe

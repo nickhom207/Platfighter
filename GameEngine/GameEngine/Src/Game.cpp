@@ -77,9 +77,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player = new PlayerObject("assets/face.png", 400, 512);
 	melee = new Hitbox(player, 0, 0, 64, 64, 0.5, 5, M_PI / 2.5);
 	dummy = new DummyObject("assets/dummy.png", 500, 512);
-	lowerBound = new GameObject("assets/red_square.png", 0, 1000, 4, 2000);
-	leftBound = new GameObject("assets/red_square.png", -100, 360, 900, 4);
-	rightBound = new GameObject("assets/red_square.png", 1400, 360, 900, 4);
+	lowerBound = new GameObject("assets/red_square.png", -500, 1300, 32, 2500);
+	leftBound = new GameObject("assets/red_square.png", -100, -200, 1500, 32);
+	rightBound = new GameObject("assets/red_square.png", 1400, -200, 1000, 32);
 	stage = new GameObject("assets/main_platform.png", 192, 576, 8, 896);
 	GameObject* target = new GameObject("assets/blue_square.png", 192, 500, 32, 32);
 	targets.push_back(target);
@@ -198,6 +198,7 @@ void Game::getInputs()
 void Game::update()
 {
 	player->Update();
+	lowerBound->Update();
 	dummy->Update();
 	stage->Update();
 
@@ -254,7 +255,8 @@ void Game::update()
 
 	//hitbox-dummy collision
 	if (melee->isActive() and collisionManager.CheckCollision(dummy->GetCollisionTopLeftPoint(), dummy->GetCollisionBottomRightPoint(), melee->GetCollisionTopLeftPoint(), melee->GetCollisionBottomRightPoint())) {
-		if(player->isFacingRight)
+		std::cout << "hit!" << std::endl;
+		if (player->isFacingRight)
 			dummy->knockBack(melee->getXknockback(), -1 * melee->getYknockback());
 		else
 			dummy->knockBack(melee->getReverseXknockback(), -1 * melee->getYknockback());
